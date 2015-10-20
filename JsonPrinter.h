@@ -19,7 +19,7 @@
 #include "Constants.h"
 
 
-namespace ModularDevice
+namespace JsonPrinter
 {
 class JsonDepthTracker
 {

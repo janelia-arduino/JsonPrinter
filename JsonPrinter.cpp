@@ -8,6 +8,8 @@
 #include "JsonPrinter.h"
 
 
+namespace JsonPrinter
+{
 JsonDepthTracker::JsonDepthTracker()
 {
   first_item_ = true;
@@ -289,4 +291,5 @@ void JsonPrinter::stopArrayItem()
   {
     stopItem();
   }
+}
 }
