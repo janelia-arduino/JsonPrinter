@@ -16,11 +16,9 @@
 #include "Array.h"
 #include "ConstantVariable.h"
 #include "GenericSerial.h"
-#include "Constants.h"
+#include "utility/Constants.h"
 
 
-namespace JsonPrinter
-{
 class JsonDepthTracker
 {
 public:
@@ -56,12 +54,6 @@ public:
     addNull();
   }
   void addNull();
-  void addBool(const char *key, const bool value)
-  {
-    addKey(key);
-    addBool(value);
-  }
-  void addBool(const bool value);
 private:
   GenericSerial generic_serial_;
   bool pretty_print_;
@@ -71,5 +63,4 @@ private:
   void stopItem();
   void stopArrayItem();
 };
-}
 #endif

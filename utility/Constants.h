@@ -9,8 +9,6 @@
 #define _JSON_PRINTER_CONSTANTS_H_
 
 
-namespace JsonPrinter
-{
 namespace constants
 {
 enum {RESPONSE_DEPTH_MAX=8};
@@ -26,6 +24,5 @@ enum{STRING_LENGTH_DOUBLE=36};
 extern const int double_digits;
 
 extern const int response_indent;
-}
 }
 #endif

@@ -7,12 +7,9 @@
 // ----------------------------------------------------------------------------
 #include "Constants.h"
 
-namespace JsonPrinter
-{
 namespace constants
 {
 const int double_digits = 4;
 
 const int response_indent = 2;
-}
 }

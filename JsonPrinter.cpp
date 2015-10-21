@@ -8,8 +8,6 @@
 #include "JsonPrinter.h"
 
 
-namespace JsonPrinter
-{
 JsonDepthTracker::JsonDepthTracker()
 {
   first_item_ = true;
@@ -110,21 +108,21 @@ void JsonPrinter::add<char*>(char *value)
 template <>
 void JsonPrinter::add<String>(String value)
 {
-  indent();
+  stopArrayItem();
   generic_serial_.getSerial() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<String&>(String &value)
 {
-  indent();
+  stopArrayItem();
   generic_serial_.getSerial() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<ConstantString>(ConstantString value)
 {
-  indent();
+  stopArrayItem();
   generic_serial_.getSerial() << "\"" << value << "\"";
 }
 
@@ -244,19 +242,6 @@ void JsonPrinter::addNull()
   generic_serial_.getSerial() << "null";
 }
 
-void JsonPrinter::addBool(const bool value)
-{
-  stopArrayItem();
-  if (value)
-  {
-    generic_serial_.getSerial() <<  "true";
-  }
-  else
-  {
-    generic_serial_.getSerial() <<  "false";
-  }
-}
-
 void JsonPrinter::indent()
 {
   if (pretty_print_)
@@ -291,5 +276,4 @@ void JsonPrinter::stopArrayItem()
   {
     stopItem();
   }
-}
 }
