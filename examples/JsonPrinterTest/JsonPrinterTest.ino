@@ -79,6 +79,9 @@ void loop()
   json_printer.add("Z");
   json_printer.stopArray();
 
+  json_printer.add("DOUBLE_DIGITS",JsonPrinter::DOUBLE_DIGITS);
+  json_printer.add("response",JsonPrinter::SUCCESS);
+
   json_printer.stopObject();
 
   generic_serial.getSerial() << endl;

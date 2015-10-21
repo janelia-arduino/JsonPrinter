@@ -16,7 +16,6 @@
 #include "Array.h"
 #include "ConstantVariable.h"
 #include "GenericSerial.h"
-#include "utility/Constants.h"
 
 
 class JsonDepthTracker
@@ -31,6 +30,14 @@ public:
 class JsonPrinter
 {
 public:
+  enum ResponseCodes
+    {
+      ERROR=0,
+      SUCCESS=1,
+    };
+  static const uint8_t STRING_LENGTH_DOUBLE=36;
+  static const uint8_t DOUBLE_DIGITS=4;
+
   JsonPrinter(GenericSerial &serial);
   void setSerial(GenericSerial &serial);
   void startObject();
@@ -55,10 +62,12 @@ public:
   }
   void addNull();
 private:
+  static const uint8_t RESPONSE_DEPTH_MAX=8;
+  static const uint8_t RESPONSE_INDENT=2;
   GenericSerial generic_serial_;
   bool pretty_print_;
   int indent_level_;
-  Array<JsonDepthTracker,constants::RESPONSE_DEPTH_MAX> jdt_array_;
+  Array<JsonDepthTracker,RESPONSE_DEPTH_MAX> jdt_array_;
   void indent();
   void stopItem();
   void stopArrayItem();
