@@ -18,6 +18,8 @@ CONSTANT_STRING(const_str_1,"..1..");
 CONSTANT_STRING(const_str_2,"..2..");
 CONSTANT_STRING(const_str_3,"..3..");
 
+unsigned int print_count = 0;
+
 void setup()
 {
   Serial.begin(BAUDRATE);
@@ -28,6 +30,15 @@ void setup()
 
 void loop()
 {
+  if ((print_count % 2) == 0)
+  {
+    json_printer.setPrettyPrint();
+  }
+  else
+  {
+    json_printer.setCompactPrint();
+  }
+
   json_printer.startObject();
 
   const int months = 12;
@@ -86,5 +97,6 @@ void loop()
 
   generic_serial.getSerial() << endl;
 
+  ++print_count;
   delay(2000);
 }
