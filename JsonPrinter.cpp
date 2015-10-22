@@ -236,6 +236,18 @@ void JsonPrinter::addKey(const char *key)
   generic_serial_.getSerial() << "\"" << key << "\"" << ":";
 }
 
+void JsonPrinter::addKey(const String key)
+{
+  stopItem();
+  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
+}
+
+void JsonPrinter::addKey(const ConstantString key)
+{
+  stopItem();
+  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
+}
+
 void JsonPrinter::addNull()
 {
   stopArrayItem();

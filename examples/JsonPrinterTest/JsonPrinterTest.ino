@@ -12,11 +12,13 @@ const unsigned int BAUDRATE = 9600;
 GenericSerial generic_serial(Serial);
 JsonPrinter json_printer(generic_serial);
 
-CONSTANT_STRING(const_str,"I am a constant string!");
-CONSTANT_STRING(const_str_0,"..0..");
-CONSTANT_STRING(const_str_1,"..1..");
-CONSTANT_STRING(const_str_2,"..2..");
-CONSTANT_STRING(const_str_3,"..3..");
+CONSTANT_STRING(constant_string,"I am a constant string!");
+CONSTANT_STRING(constant_string_0,"..0..");
+CONSTANT_STRING(constant_string_1,"..1..");
+CONSTANT_STRING(constant_string_2,"..2..");
+CONSTANT_STRING(constant_string_3,"..3..");
+CONSTANT_STRING(constant_string_key,"constant_string");
+const String const_string_key("constString");
 
 unsigned int print_count = 0;
 
@@ -66,14 +68,14 @@ void loop()
 
   json_printer.stopObject();
 
-  json_printer.add("const_str",const_str);
+  json_printer.add("constant_string",constant_string);
 
-  json_printer.addKey("const_str_array");
+  json_printer.addKey("constant_string_array");
   json_printer.startArray();
-  json_printer.add(const_str_0);
-  json_printer.add(const_str_1);
-  json_printer.add(const_str_2);
-  json_printer.add(const_str_3);
+  json_printer.add(constant_string_0);
+  json_printer.add(constant_string_1);
+  json_printer.add(constant_string_2);
+  json_printer.add(constant_string_3);
   json_printer.stopArray();
 
   json_printer.addKey("String array");
@@ -92,6 +94,9 @@ void loop()
 
   json_printer.add("DOUBLE_DIGITS",JsonPrinter::DOUBLE_DIGITS);
   json_printer.add("response",JsonPrinter::SUCCESS);
+
+  json_printer.add(constant_string_key,"yep!");
+  json_printer.add(const_string_key,"yep!!");
 
   json_printer.stopObject();
 

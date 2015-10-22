@@ -47,6 +47,8 @@ public:
   void setCompactPrint();
   void setPrettyPrint();
   void addKey(const char *key);
+  void addKey(const String key);
+  void addKey(const ConstantString key);
   template<typename T>
   void add(T value);
   template<typename T>
@@ -55,7 +57,29 @@ public:
     addKey(key);
     add(value);
   }
+  template<typename T>
+  void add(const String key, T value)
+  {
+    addKey(key);
+    add(value);
+  }
+  template<typename T>
+  void add(const ConstantString key, T value)
+  {
+    addKey(key);
+    add(value);
+  }
   void addNull(const char *key)
+  {
+    addKey(key);
+    addNull();
+  }
+  void addNull(const String key)
+  {
+    addKey(key);
+    addNull();
+  }
+  void addNull(const ConstantString key)
   {
     addKey(key);
     addNull();
