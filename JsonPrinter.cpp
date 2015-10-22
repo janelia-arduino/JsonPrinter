@@ -92,6 +92,13 @@ void JsonPrinter::addKey<const char *>(const char *key)
 }
 
 template <>
+void JsonPrinter::addKey<char *>(char *key)
+{
+  stopItem();
+  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
+}
+
+template <>
 void JsonPrinter::addKey<String>(String key)
 {
   stopItem();
