@@ -43,8 +43,13 @@ void loop()
 
   json_printer.startObject();
 
+  json_printer.addKey(constant_string_key);
+  json_printer.add(13);
+
   const int months = 12;
   json_printer.add("months",months);
+
+  json_printer.addNull("empty");
 
   int test = 123;
   json_printer.add("test",test);

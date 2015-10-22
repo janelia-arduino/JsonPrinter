@@ -85,6 +85,27 @@ void JsonPrinter::setPrettyPrint()
 }
 
 template <>
+void JsonPrinter::addKey<const char *>(const char *key)
+{
+  stopItem();
+  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
+}
+
+template <>
+void JsonPrinter::addKey<String>(String key)
+{
+  stopItem();
+  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
+}
+
+template <>
+void JsonPrinter::addKey<ConstantString>(ConstantString key)
+{
+  stopItem();
+  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
+}
+
+template <>
 void JsonPrinter::add<char>(char value)
 {
   stopArrayItem();
@@ -228,24 +249,6 @@ void JsonPrinter::add<bool>(bool value)
   {
     generic_serial_.getSerial() <<  "false";
   }
-}
-
-void JsonPrinter::addKey(const char *key)
-{
-  stopItem();
-  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
-}
-
-void JsonPrinter::addKey(const String key)
-{
-  stopItem();
-  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
-}
-
-void JsonPrinter::addKey(const ConstantString key)
-{
-  stopItem();
-  generic_serial_.getSerial() << "\"" << key << "\"" << ":";
 }
 
 void JsonPrinter::addNull()

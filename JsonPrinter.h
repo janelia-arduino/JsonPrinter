@@ -46,45 +46,23 @@ public:
   void stopArray();
   void setCompactPrint();
   void setPrettyPrint();
-  void addKey(const char *key);
-  void addKey(const String key);
-  void addKey(const ConstantString key);
+  template<typename K>
+  void addKey(K key);
   template<typename T>
   void add(T value);
-  template<typename T>
-  void add(const char *key, T value)
+  template<typename K, typename T>
+  void add(K key, T value)
   {
     addKey(key);
     add(value);
-  }
-  template<typename T>
-  void add(const String key, T value)
-  {
-    addKey(key);
-    add(value);
-  }
-  template<typename T>
-  void add(const ConstantString key, T value)
-  {
-    addKey(key);
-    add(value);
-  }
-  void addNull(const char *key)
-  {
-    addKey(key);
-    addNull();
-  }
-  void addNull(const String key)
-  {
-    addKey(key);
-    addNull();
-  }
-  void addNull(const ConstantString key)
-  {
-    addKey(key);
-    addNull();
   }
   void addNull();
+  template<typename K>
+  void addNull(K key)
+  {
+    addKey(key);
+    addNull();
+  }
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
@@ -96,4 +74,5 @@ private:
   void stopItem();
   void stopArrayItem();
 };
+
 #endif
