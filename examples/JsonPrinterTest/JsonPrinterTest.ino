@@ -24,7 +24,7 @@ unsigned int print_count = 0;
 
 void setup()
 {
-  Serial.begin(BAUDRATE);
+  generic_serial.begin(BAUDRATE);
 
   json_printer.setPrettyPrint();
 }
@@ -105,7 +105,7 @@ void loop()
 
   json_printer.stopObject();
 
-  generic_serial.getSerial() << endl;
+  generic_serial.getStream() << endl;
 
   ++print_count;
   delay(2000);

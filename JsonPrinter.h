@@ -38,8 +38,8 @@ public:
   static const uint8_t STRING_LENGTH_DOUBLE=36;
   static const uint8_t DOUBLE_DIGITS=4;
 
-  JsonPrinter(GenericSerial &serial);
-  void setSerial(GenericSerial &serial);
+  JsonPrinter(GenericSerialBase &serial);
+  void setSerial(GenericSerialBase &serial);
   void startObject();
   void stopObject();
   void startArray();
@@ -66,7 +66,7 @@ public:
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
-  GenericSerial generic_serial_;
+  GenericSerialBase *generic_serial_ptr_;
   bool pretty_print_;
   int indent_level_;
   Array<JsonDepthTracker,RESPONSE_DEPTH_MAX> jdt_array_;
