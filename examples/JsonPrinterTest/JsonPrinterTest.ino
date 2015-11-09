@@ -4,6 +4,7 @@
 #include "Flash.h"
 #include "ConstantVariable.h"
 #include "GenericSerial.h"
+#include "ArduinoJson.h"
 #include "JsonPrinter.h"
 
 
@@ -103,6 +104,8 @@ void loop()
 
   json_printer.add(constant_string_key,"yep!");
   json_printer.add(const_string_key,"yep!!");
+
+  json_printer.add("baudrate",BAUDRATE);
 
   json_printer.stopObject();
 

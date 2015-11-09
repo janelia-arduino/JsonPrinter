@@ -16,6 +16,7 @@
 #include "Array.h"
 #include "ConstantVariable.h"
 #include "GenericSerial.h"
+#include "ArduinoJson.h"
 
 
 class JsonDepthTracker

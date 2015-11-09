@@ -258,6 +258,20 @@ void JsonPrinter::add<bool>(bool value)
   }
 }
 
+template <>
+void JsonPrinter::add<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
+{
+  stopArrayItem();
+  array_ptr->printTo(generic_serial_ptr_->getStream());
+}
+
+template <>
+void JsonPrinter::add<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
+{
+  stopArrayItem();
+  object_ptr->printTo(generic_serial_ptr_->getStream());
+}
+
 void JsonPrinter::addNull()
 {
   stopArrayItem();
