@@ -216,10 +216,10 @@ void JsonPrinter::add<JsonPrinter::ResponseCodes>(JsonPrinter::ResponseCodes val
     switch (value)
     {
       case ERROR:
-        generic_serial_ptr_->getStream() <<  "error";
+        generic_serial_ptr_->getStream() <<  "\"error\"";
         break;
       case SUCCESS:
-        generic_serial_ptr_->getStream() <<  "success";
+        generic_serial_ptr_->getStream() <<  "\"success\"";
         break;
     }
   }

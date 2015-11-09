@@ -99,6 +99,7 @@ void loop()
 
   json_printer.add("DOUBLE_DIGITS",JsonPrinter::DOUBLE_DIGITS);
   json_printer.add("response",JsonPrinter::SUCCESS);
+  json_printer.add("error",JsonPrinter::ERROR);
 
   json_printer.add(constant_string_key,"yep!");
   json_printer.add(const_string_key,"yep!!");
