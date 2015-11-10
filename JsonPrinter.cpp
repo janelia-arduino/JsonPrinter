@@ -113,6 +113,13 @@ void JsonPrinter::addKey<ConstantString>(ConstantString key)
 }
 
 template <>
+void JsonPrinter::addKey<ConstantString*>(ConstantString *key_ptr)
+{
+  stopItem();
+  generic_serial_ptr_->getStream() << "\"" << *key_ptr << "\"" << ":";
+}
+
+template <>
 void JsonPrinter::add<char>(char value)
 {
   stopArrayItem();
@@ -152,6 +159,13 @@ void JsonPrinter::add<ConstantString>(ConstantString value)
 {
   stopArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
+}
+
+template <>
+void JsonPrinter::add<ConstantString*>(ConstantString *value_ptr)
+{
+  stopArrayItem();
+  generic_serial_ptr_->getStream() << "\"" << *value_ptr << "\"";
 }
 
 template <>

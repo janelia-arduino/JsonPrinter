@@ -20,6 +20,7 @@ CONSTANT_STRING(constant_string_2,"..2..");
 CONSTANT_STRING(constant_string_3,"..3..");
 CONSTANT_STRING(constant_string_key,"constant_string");
 const String const_string_key("constString");
+ConstantString* constant_string_ptr = &constant_string;
 
 unsigned int print_count = 0;
 
@@ -106,6 +107,8 @@ void loop()
   json_printer.add(const_string_key,"yep!!");
 
   json_printer.add("baudrate",BAUDRATE);
+
+  json_printer.add("constant_string_ptr",constant_string_ptr);
 
   json_printer.stopObject();
 
