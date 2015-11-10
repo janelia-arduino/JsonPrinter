@@ -36,6 +36,16 @@ public:
       ERROR=0,
       SUCCESS=1,
     };
+  enum JsonTypes
+    {
+      LONG_TYPE,
+      DOUBLE_TYPE,
+      BOOL_TYPE,
+      NULL_TYPE,
+      STRING_TYPE,
+      OBJECT_TYPE,
+      ARRAY_TYPE,
+    };
   static const uint8_t STRING_LENGTH_DOUBLE=36;
   static const uint8_t DOUBLE_DIGITS=4;
 

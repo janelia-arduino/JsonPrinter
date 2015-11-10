@@ -8,6 +8,20 @@
 #include "JsonPrinter.h"
 
 
+CONSTANT_STRING(error_constant_string,"\"error\"");
+CONSTANT_STRING(success_constant_string,"\"success\"");
+
+CONSTANT_STRING(true_constant_string,"true");
+CONSTANT_STRING(false_constant_string,"false");
+CONSTANT_STRING(null_constant_string,"null");
+
+CONSTANT_STRING(long_constant_string,"\"long\"");
+CONSTANT_STRING(double_constant_string,"\"double\"");
+CONSTANT_STRING(bool_constant_string,"\"bool\"");
+CONSTANT_STRING(string_constant_string,"\"string\"");
+CONSTANT_STRING(object_constant_string,"\"object\"");
+CONSTANT_STRING(array_constant_string,"\"array\"");
+
 JsonDepthTracker::JsonDepthTracker()
 {
   first_item_ = true;
@@ -113,7 +127,14 @@ void JsonPrinter::addKey<ConstantString>(ConstantString key)
 }
 
 template <>
-void JsonPrinter::addKey<ConstantString*>(ConstantString *key_ptr)
+void JsonPrinter::addKey<ConstantString const *>(ConstantString const *key_ptr)
+{
+  stopItem();
+  generic_serial_ptr_->getStream() << "\"" << *key_ptr << "\"" << ":";
+}
+
+template <>
+void JsonPrinter::addKey<ConstantString *>(ConstantString *key_ptr)
 {
   stopItem();
   generic_serial_ptr_->getStream() << "\"" << *key_ptr << "\"" << ":";
@@ -162,7 +183,14 @@ void JsonPrinter::add<ConstantString>(ConstantString value)
 }
 
 template <>
-void JsonPrinter::add<ConstantString*>(ConstantString *value_ptr)
+void JsonPrinter::add<ConstantString *>(ConstantString *value_ptr)
+{
+  stopArrayItem();
+  generic_serial_ptr_->getStream() << "\"" << *value_ptr << "\"";
+}
+
+template <>
+void JsonPrinter::add<ConstantString const *>(ConstantString const *value_ptr)
 {
   stopArrayItem();
   generic_serial_ptr_->getStream() << "\"" << *value_ptr << "\"";
@@ -230,12 +258,42 @@ void JsonPrinter::add<JsonPrinter::ResponseCodes>(JsonPrinter::ResponseCodes val
     switch (value)
     {
       case ERROR:
-        generic_serial_ptr_->getStream() <<  "\"error\"";
+        generic_serial_ptr_->getStream() <<  error_constant_string;
         break;
       case SUCCESS:
-        generic_serial_ptr_->getStream() <<  "\"success\"";
+        generic_serial_ptr_->getStream() <<  success_constant_string;
         break;
     }
+  }
+}
+
+template <>
+void JsonPrinter::add<JsonPrinter::JsonTypes>(JsonPrinter::JsonTypes value)
+{
+  stopArrayItem();
+  switch (value)
+  {
+    case LONG_TYPE:
+      generic_serial_ptr_->getStream() <<  long_constant_string;
+      break;
+    case DOUBLE_TYPE:
+      generic_serial_ptr_->getStream() <<  double_constant_string;
+      break;
+    case BOOL_TYPE:
+      generic_serial_ptr_->getStream() <<  bool_constant_string;
+      break;
+    case NULL_TYPE:
+      generic_serial_ptr_->getStream() <<  null_constant_string;
+      break;
+    case STRING_TYPE:
+      generic_serial_ptr_->getStream() <<  string_constant_string;
+      break;
+    case OBJECT_TYPE:
+      generic_serial_ptr_->getStream() <<  object_constant_string;
+      break;
+    case ARRAY_TYPE:
+      generic_serial_ptr_->getStream() <<  array_constant_string;
+      break;
   }
 }
 
@@ -264,11 +322,11 @@ void JsonPrinter::add<bool>(bool value)
 {
   if (value)
   {
-    generic_serial_ptr_->getStream() <<  "true";
+    generic_serial_ptr_->getStream() <<  true_constant_string;
   }
   else
   {
-    generic_serial_ptr_->getStream() <<  "false";
+    generic_serial_ptr_->getStream() <<  false_constant_string;
   }
 }
 
@@ -289,7 +347,7 @@ void JsonPrinter::add<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_
 void JsonPrinter::addNull()
 {
   stopArrayItem();
-  generic_serial_ptr_->getStream() << "null";
+  generic_serial_ptr_->getStream() << null_constant_string;
 }
 
 void JsonPrinter::indent()
