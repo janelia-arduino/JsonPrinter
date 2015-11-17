@@ -47,7 +47,7 @@ public:
       ARRAY_TYPE,
     };
   static const uint8_t STRING_LENGTH_DOUBLE=36;
-  static const uint8_t DOUBLE_DIGITS_DEFAULT=4;
+  static const uint8_t DOUBLE_DIGITS_DEFAULT=6;
   static const char EOL='\n';
 
   JsonPrinter(GenericSerialBase &serial);
