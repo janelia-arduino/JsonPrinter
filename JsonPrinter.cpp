@@ -302,8 +302,7 @@ void JsonPrinter::add<double>(double value)
 {
   stopArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
-  // dtostre(value,value_char_array,DOUBLE_DIGITS,0);
-  dtostrf(value,DOUBLE_DIGITS,DOUBLE_DIGITS,value_char_array);
+  dtostrf(value,DOUBLE_DIGITS_DEFAULT,DOUBLE_DIGITS_DEFAULT,value_char_array);
   generic_serial_ptr_->getStream() <<  value_char_array;
 }
 
@@ -312,8 +311,25 @@ void JsonPrinter::add<float>(float value)
 {
   stopArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
-  // dtostre((double)value,value_char_array,DOUBLE_DIGITS,0);
-  dtostrf((double)value,DOUBLE_DIGITS,DOUBLE_DIGITS,value_char_array);
+  dtostrf((double)value,DOUBLE_DIGITS_DEFAULT,DOUBLE_DIGITS_DEFAULT,value_char_array);
+  generic_serial_ptr_->getStream() <<  value_char_array;
+}
+
+template <>
+void JsonPrinter::add<double>(double value, unsigned char prec)
+{
+  stopArrayItem();
+  char value_char_array[STRING_LENGTH_DOUBLE];
+  dtostrf(value,prec,prec,value_char_array);
+  generic_serial_ptr_->getStream() <<  value_char_array;
+}
+
+template <>
+void JsonPrinter::add<float>(float value, unsigned char prec)
+{
+  stopArrayItem();
+  char value_char_array[STRING_LENGTH_DOUBLE];
+  dtostrf((double)value,prec,prec,value_char_array);
   generic_serial_ptr_->getStream() <<  value_char_array;
 }
 

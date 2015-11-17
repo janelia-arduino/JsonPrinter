@@ -47,7 +47,7 @@ public:
       ARRAY_TYPE,
     };
   static const uint8_t STRING_LENGTH_DOUBLE=36;
-  static const uint8_t DOUBLE_DIGITS=4;
+  static const uint8_t DOUBLE_DIGITS_DEFAULT=4;
 
   JsonPrinter(GenericSerialBase &serial);
   void setSerial(GenericSerialBase &serial);
@@ -61,11 +61,19 @@ public:
   void addKey(K key);
   template<typename T>
   void add(T value);
+  template<typename T>
+  void add(T value, unsigned char prec);
   template<typename K, typename T>
   void add(K key, T value)
   {
     addKey(key);
     add(value);
+  }
+  template<typename K, typename T>
+  void add(K key, T value, unsigned char prec)
+  {
+    addKey(key);
+    add(value,prec);
   }
   void addNull();
   template<typename K>

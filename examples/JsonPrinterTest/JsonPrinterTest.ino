@@ -70,7 +70,7 @@ void loop()
   json_printer.add(3);
   json_printer.stopArray();
 
-  json_printer.add("str",String("red rover"));
+  json_printer.add("string",String("red rover"));
   json_printer.add("chars","jump over");
 
   json_printer.stopObject();
@@ -99,7 +99,6 @@ void loop()
   json_printer.add("Z");
   json_printer.stopArray();
 
-  json_printer.add("DOUBLE_DIGITS",JsonPrinter::DOUBLE_DIGITS);
   json_printer.add("response",JsonPrinter::SUCCESS);
   json_printer.add("error",JsonPrinter::ERROR);
 
@@ -109,6 +108,10 @@ void loop()
   json_printer.add("baudrate",BAUDRATE);
 
   json_printer.add("constant_string_ptr",constant_string_ptr);
+
+  double pi = 3.141592653589;
+  json_printer.add("pi_default_prec",pi);
+  json_printer.add("pi_8_digit_prec",pi,8);
 
   json_printer.stopObject();
 
