@@ -48,6 +48,7 @@ public:
     };
   static const uint8_t STRING_LENGTH_DOUBLE=36;
   static const uint8_t DOUBLE_DIGITS_DEFAULT=4;
+  static const char EOL='\n';
 
   JsonPrinter(GenericSerialBase &serial);
   void setSerial(GenericSerialBase &serial);
@@ -82,6 +83,7 @@ public:
     addKey(key);
     addNull();
   }
+  void linefeed();
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;

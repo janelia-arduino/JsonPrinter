@@ -366,6 +366,11 @@ void JsonPrinter::addNull()
   generic_serial_ptr_->getStream() << null_constant_string;
 }
 
+void JsonPrinter::linefeed()
+{
+  generic_serial_ptr_->getStream() << endl;
+}
+
 void JsonPrinter::indent()
 {
   if (pretty_print_)
