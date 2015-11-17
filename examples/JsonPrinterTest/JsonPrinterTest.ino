@@ -111,7 +111,7 @@ void loop()
 
   double pi = 3.141592653589;
   json_printer.add("pi_default_prec",pi);
-  json_printer.add("pi_2_digit_prec",pi,2);
+  json_printer.addDouble("pi_2_digit_prec",pi,2);
 
   json_printer.stopObject();
 

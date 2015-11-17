@@ -316,7 +316,7 @@ void JsonPrinter::add<float>(float value)
 }
 
 template <>
-void JsonPrinter::add<double>(double value, unsigned char prec)
+void JsonPrinter::addDouble<double>(double value, unsigned char prec)
 {
   stopArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
@@ -325,7 +325,7 @@ void JsonPrinter::add<double>(double value, unsigned char prec)
 }
 
 template <>
-void JsonPrinter::add<float>(float value, unsigned char prec)
+void JsonPrinter::addDouble<float>(float value, unsigned char prec)
 {
   stopArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];

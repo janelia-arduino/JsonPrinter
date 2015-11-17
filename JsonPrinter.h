@@ -63,7 +63,7 @@ public:
   template<typename T>
   void add(T value);
   template<typename T>
-  void add(T value, unsigned char prec);
+  void addDouble(T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
   template<typename K, typename T>
   void add(K key, T value)
   {
@@ -71,10 +71,10 @@ public:
     add(value);
   }
   template<typename K, typename T>
-  void add(K key, T value, unsigned char prec)
+  void addDouble(K key, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT)
   {
     addKey(key);
-    add(value,prec);
+    addDouble(value,prec);
   }
   void addNull();
   template<typename K>
