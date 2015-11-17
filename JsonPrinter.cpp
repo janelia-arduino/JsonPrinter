@@ -62,7 +62,7 @@ void JsonPrinter::stopObject()
   indent_level_--;
   if (pretty_print_ && (!jdt_array_.back().first_item_))
   {
-    generic_serial_ptr_->getStream() << endl;
+    generic_serial_ptr_->getStream() << "\n";
     indent();
   }
   jdt_array_.pop_back();
@@ -81,7 +81,7 @@ void JsonPrinter::stopArray()
   indent_level_--;
   if (pretty_print_ && (!jdt_array_.back().first_item_))
   {
-    generic_serial_ptr_->getStream() << endl;
+    generic_serial_ptr_->getStream() << "\n";
     indent();
   }
   jdt_array_.pop_back();
@@ -368,7 +368,7 @@ void JsonPrinter::addNull()
 
 void JsonPrinter::linefeed()
 {
-  generic_serial_ptr_->getStream() << endl;
+  generic_serial_ptr_->getStream() << "\n";
 }
 
 void JsonPrinter::indent()
@@ -394,7 +394,7 @@ void JsonPrinter::stopItem()
   }
   if (pretty_print_)
   {
-    generic_serial_ptr_->getStream() << endl;
+    generic_serial_ptr_->getStream() << "\n";
   }
   indent();
 }

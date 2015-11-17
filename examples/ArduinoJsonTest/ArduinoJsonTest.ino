@@ -55,7 +55,7 @@ void loop()
 
   json_printer.stopObject();
 
-  generic_serial.getStream() << endl;
+  generic_serial.getStream() << "\n";
 
   ++print_count;
   delay(2000);
