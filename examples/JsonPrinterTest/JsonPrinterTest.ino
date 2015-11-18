@@ -43,7 +43,7 @@ void loop()
     json_printer.setCompactPrint();
   }
 
-  json_printer.startObject();
+  json_printer.beginObject();
 
   json_printer.addKey(constant_string_key);
   json_printer.add(13);
@@ -61,43 +61,43 @@ void loop()
   json_printer.add("tested",tested);
 
   json_printer.addKey("another_object");
-  json_printer.startObject();
+  json_printer.beginObject();
 
   json_printer.addKey("count");
-  json_printer.startArray();
+  json_printer.beginArray();
   json_printer.add(1);
   json_printer.add(2);
   json_printer.add(3);
-  json_printer.stopArray();
+  json_printer.endArray();
 
   json_printer.add("string",String("red rover"));
   json_printer.add("chars","jump over");
 
-  json_printer.stopObject();
+  json_printer.endObject();
 
   json_printer.add("constant_string",constant_string);
 
   json_printer.addKey("constant_string_array");
-  json_printer.startArray();
+  json_printer.beginArray();
   json_printer.add(constant_string_0);
   json_printer.add(constant_string_1);
   json_printer.add(constant_string_2);
   json_printer.add(constant_string_3);
-  json_printer.stopArray();
+  json_printer.endArray();
 
   json_printer.addKey("String array");
-  json_printer.startArray();
+  json_printer.beginArray();
   json_printer.add(String("A"));
   json_printer.add(String("B"));
   json_printer.add(String("C"));
-  json_printer.stopArray();
+  json_printer.endArray();
 
   json_printer.addKey("char array array");
-  json_printer.startArray();
+  json_printer.beginArray();
   json_printer.add("X");
   json_printer.add("Y");
   json_printer.add("Z");
-  json_printer.stopArray();
+  json_printer.endArray();
 
   json_printer.add("response",JsonPrinter::SUCCESS);
   json_printer.add("error",JsonPrinter::ERROR);
@@ -113,7 +113,7 @@ void loop()
   json_printer.add("pi_default_prec",pi);
   json_printer.addDouble("pi_2_digit_prec",pi,2);
 
-  json_printer.stopObject();
+  json_printer.endObject();
 
   json_printer.linefeed();
   json_printer.linefeed();

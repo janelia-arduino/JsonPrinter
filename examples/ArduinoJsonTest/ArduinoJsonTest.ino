@@ -45,7 +45,7 @@ void loop()
     json_printer.setCompactPrint();
   }
 
-  json_printer.startObject();
+  json_printer.beginObject();
 
   json_printer.addKey("json_object");
   json_printer.add(&root);
@@ -53,7 +53,7 @@ void loop()
   json_printer.addKey("json_array");
   json_printer.add(&data);
 
-  json_printer.stopObject();
+  json_printer.endObject();
 
   generic_serial.getStream() << "\n";
 

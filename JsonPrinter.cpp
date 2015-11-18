@@ -46,18 +46,18 @@ void JsonPrinter::setSerial(GenericSerialBase &serial)
   generic_serial_ptr_ = &serial;
 }
 
-void JsonPrinter::startObject()
+void JsonPrinter::beginObject()
 {
   if (!jdt_array_.empty())
   {
-    stopArrayItem();
+    endArrayItem();
   }
   indent_level_++;
   jdt_array_.push_back(JsonDepthTracker(true,true));
   generic_serial_ptr_->getStream() << "{";
 }
 
-void JsonPrinter::stopObject()
+void JsonPrinter::endObject()
 {
   indent_level_--;
   if (pretty_print_ && (!jdt_array_.back().first_item_))
@@ -69,14 +69,14 @@ void JsonPrinter::stopObject()
   generic_serial_ptr_->getStream() << "}";
 }
 
-void JsonPrinter::startArray()
+void JsonPrinter::beginArray()
 {
   indent_level_++;
   jdt_array_.push_back(JsonDepthTracker(true,false));
   generic_serial_ptr_->getStream() << "[";
 }
 
-void JsonPrinter::stopArray()
+void JsonPrinter::endArray()
 {
   indent_level_--;
   if (pretty_print_ && (!jdt_array_.back().first_item_))
@@ -101,154 +101,154 @@ void JsonPrinter::setPrettyPrint()
 template <>
 void JsonPrinter::addKey<const char *>(const char *key)
 {
-  stopItem();
+  endItem();
   generic_serial_ptr_->getStream() << "\"" << key << "\"" << ":";
 }
 
 template <>
 void JsonPrinter::addKey<char *>(char *key)
 {
-  stopItem();
+  endItem();
   generic_serial_ptr_->getStream() << "\"" << key << "\"" << ":";
 }
 
 template <>
 void JsonPrinter::addKey<String>(String key)
 {
-  stopItem();
+  endItem();
   generic_serial_ptr_->getStream() << "\"" << key << "\"" << ":";
 }
 
 template <>
 void JsonPrinter::addKey<ConstantString>(ConstantString key)
 {
-  stopItem();
+  endItem();
   generic_serial_ptr_->getStream() << "\"" << key << "\"" << ":";
 }
 
 template <>
 void JsonPrinter::addKey<ConstantString const *>(ConstantString const *key_ptr)
 {
-  stopItem();
+  endItem();
   generic_serial_ptr_->getStream() << "\"" << *key_ptr << "\"" << ":";
 }
 
 template <>
 void JsonPrinter::addKey<ConstantString *>(ConstantString *key_ptr)
 {
-  stopItem();
+  endItem();
   generic_serial_ptr_->getStream() << "\"" << *key_ptr << "\"" << ":";
 }
 
 template <>
 void JsonPrinter::add<char>(char value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<const char*>(const char *value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<char*>(char *value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<String>(String value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<String&>(String &value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<ConstantString>(ConstantString value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << value << "\"";
 }
 
 template <>
 void JsonPrinter::add<ConstantString *>(ConstantString *value_ptr)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << *value_ptr << "\"";
 }
 
 template <>
 void JsonPrinter::add<ConstantString const *>(ConstantString const *value_ptr)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << "\"" << *value_ptr << "\"";
 }
 
 template <>
 void JsonPrinter::add<unsigned char>(unsigned char value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<int>(int value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<unsigned int>(unsigned int value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<long>(long value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<unsigned long>(unsigned long value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<long long>(long long value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<unsigned long long>(unsigned long long value)
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() <<  _DEC(value);
 }
 
 template <>
 void JsonPrinter::add<JsonPrinter::ResponseCodes>(JsonPrinter::ResponseCodes value)
 {
-  stopArrayItem();
+  endArrayItem();
   if (!pretty_print_)
   {
     generic_serial_ptr_->getStream() <<  value;
@@ -270,7 +270,7 @@ void JsonPrinter::add<JsonPrinter::ResponseCodes>(JsonPrinter::ResponseCodes val
 template <>
 void JsonPrinter::add<JsonPrinter::JsonTypes>(JsonPrinter::JsonTypes value)
 {
-  stopArrayItem();
+  endArrayItem();
   switch (value)
   {
     case LONG_TYPE:
@@ -300,7 +300,7 @@ void JsonPrinter::add<JsonPrinter::JsonTypes>(JsonPrinter::JsonTypes value)
 template <>
 void JsonPrinter::add<double>(double value)
 {
-  stopArrayItem();
+  endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
   dtostrf(value,DOUBLE_DIGITS_DEFAULT,DOUBLE_DIGITS_DEFAULT,value_char_array);
   generic_serial_ptr_->getStream() <<  value_char_array;
@@ -309,7 +309,7 @@ void JsonPrinter::add<double>(double value)
 template <>
 void JsonPrinter::add<float>(float value)
 {
-  stopArrayItem();
+  endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
   dtostrf((double)value,DOUBLE_DIGITS_DEFAULT,DOUBLE_DIGITS_DEFAULT,value_char_array);
   generic_serial_ptr_->getStream() <<  value_char_array;
@@ -318,7 +318,7 @@ void JsonPrinter::add<float>(float value)
 template <>
 void JsonPrinter::addDouble<double>(double value, unsigned char prec)
 {
-  stopArrayItem();
+  endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
   dtostrf(value,prec,prec,value_char_array);
   generic_serial_ptr_->getStream() <<  value_char_array;
@@ -327,7 +327,7 @@ void JsonPrinter::addDouble<double>(double value, unsigned char prec)
 template <>
 void JsonPrinter::addDouble<float>(float value, unsigned char prec)
 {
-  stopArrayItem();
+  endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
   dtostrf((double)value,prec,prec,value_char_array);
   generic_serial_ptr_->getStream() <<  value_char_array;
@@ -349,20 +349,20 @@ void JsonPrinter::add<bool>(bool value)
 template <>
 void JsonPrinter::add<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
 {
-  stopArrayItem();
+  endArrayItem();
   array_ptr->printTo(generic_serial_ptr_->getStream());
 }
 
 template <>
 void JsonPrinter::add<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
 {
-  stopArrayItem();
+  endArrayItem();
   object_ptr->printTo(generic_serial_ptr_->getStream());
 }
 
 void JsonPrinter::addNull()
 {
-  stopArrayItem();
+  endArrayItem();
   generic_serial_ptr_->getStream() << null_constant_string;
 }
 
@@ -382,7 +382,7 @@ void JsonPrinter::indent()
   }
 }
 
-void JsonPrinter::stopItem()
+void JsonPrinter::endItem()
 {
   if (!jdt_array_.back().first_item_)
   {
@@ -399,10 +399,10 @@ void JsonPrinter::stopItem()
   indent();
 }
 
-void JsonPrinter::stopArrayItem()
+void JsonPrinter::endArrayItem()
 {
   if (!jdt_array_.back().inside_object_)
   {
-    stopItem();
+    endItem();
   }
 }

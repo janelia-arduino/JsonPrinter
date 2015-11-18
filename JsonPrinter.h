@@ -52,10 +52,10 @@ public:
 
   JsonPrinter(GenericSerialBase &serial);
   void setSerial(GenericSerialBase &serial);
-  void startObject();
-  void stopObject();
-  void startArray();
-  void stopArray();
+  void beginObject();
+  void endObject();
+  void beginArray();
+  void endArray();
   void setCompactPrint();
   void setPrettyPrint();
   template<typename K>
@@ -92,8 +92,8 @@ private:
   int indent_level_;
   Array<JsonDepthTracker,RESPONSE_DEPTH_MAX> jdt_array_;
   void indent();
-  void stopItem();
-  void stopArrayItem();
+  void endItem();
+  void endArrayItem();
 };
 
 #endif
