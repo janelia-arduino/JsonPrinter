@@ -22,6 +22,9 @@ CONSTANT_STRING(constant_string_key,"constant_string");
 const String const_string_key("constString");
 ConstantString* constant_string_ptr = &constant_string;
 
+char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
+char json_pretty[] = "{\n  \"sensor\": \"gps\",\n  \"time\": 1351824120,\n  \"data\": [\n    48.756080,\n    2.302038\n  ]\n}";
+
 unsigned int print_count = 0;
 
 void setup()
@@ -112,6 +115,20 @@ void loop()
   double pi = 3.141592653589;
   json_printer.add("pi_default_prec",pi);
   json_printer.addDouble("pi_2_digit_prec",pi,2);
+
+  json_printer.addKey("json_char_write");
+  int len = strlen(json);
+  for (unsigned int i=0;i<len;++i)
+  {
+    json_printer.writeChar(json[i]);
+  }
+
+  json_printer.addKey("json_byte_write");
+  len = strlen(json);
+  for (unsigned int i=0;i<len;++i)
+  {
+    json_printer.writeByte(json[i]);
+  }
 
   json_printer.endObject();
 

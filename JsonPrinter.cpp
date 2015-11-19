@@ -39,6 +39,7 @@ JsonPrinter::JsonPrinter(GenericSerialBase &serial)
   setSerial(serial);
   setCompactPrint();
   indent_level_ = 0;
+  writing_ = false;
 }
 
 void JsonPrinter::setSerial(GenericSerialBase &serial)
@@ -371,6 +372,26 @@ void JsonPrinter::linefeed()
   generic_serial_ptr_->getStream() << "\n";
 }
 
+void JsonPrinter::writeChar(char c)
+{
+  if (!writing_)
+  {
+    endArrayItem();
+    writing_ = true;
+  }
+  generic_serial_ptr_->getStream() << c;
+}
+
+void JsonPrinter::writeByte(byte b)
+{
+  if (!writing_)
+  {
+    endArrayItem();
+    writing_ = true;
+  }
+  generic_serial_ptr_->getStream() << b;
+}
+
 void JsonPrinter::indent()
 {
   if (pretty_print_)
@@ -397,6 +418,7 @@ void JsonPrinter::endItem()
     generic_serial_ptr_->getStream() << "\n";
   }
   indent();
+  writing_ = false;
 }
 
 void JsonPrinter::endArrayItem()

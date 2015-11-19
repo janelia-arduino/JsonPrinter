@@ -9,5 +9,8 @@ License:
     BSD
 
 
+JSON encoder that sequentially streams out a serial port to avoid
+reserving memory for an encoding buffer.
+
 [Usage Examples](./examples)
 

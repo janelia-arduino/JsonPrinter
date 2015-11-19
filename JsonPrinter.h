@@ -84,12 +84,15 @@ public:
     addNull();
   }
   void linefeed();
+  void writeChar(char c);
+  void writeByte(byte b);
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
   GenericSerialBase *generic_serial_ptr_;
   bool pretty_print_;
-  int indent_level_;
+  unsigned char indent_level_;
+  bool writing_;
   Array<JsonDepthTracker,RESPONSE_DEPTH_MAX> jdt_array_;
   void indent();
   void endItem();
