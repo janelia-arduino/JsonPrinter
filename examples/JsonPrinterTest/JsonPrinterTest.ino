@@ -10,8 +10,7 @@
 
 const unsigned int BAUDRATE = 9600;
 
-GenericSerial generic_serial(Serial);
-JsonStream json_stream(generic_serial);
+JsonStream json_stream(Serial);
 
 CONSTANT_STRING(constant_string,"I am a constant string!");
 CONSTANT_STRING(constant_string_0,"..0..");
@@ -29,7 +28,7 @@ unsigned int print_count = 0;
 
 void setup()
 {
-  generic_serial.begin(BAUDRATE);
+  Serial.begin(BAUDRATE);
 
   json_stream.setPrettyPrint();
 }

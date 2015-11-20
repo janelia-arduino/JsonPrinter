@@ -3,7 +3,6 @@
 #include "Array.h"
 #include "Flash.h"
 #include "ConstantVariable.h"
-#include "GenericSerial.h"
 #include "ArduinoJson.h"
 #include "JsonStream.h"
 
@@ -23,14 +22,13 @@ double longitude = root["data"][1];
 
 const unsigned int BAUDRATE = 9600;
 
-GenericSerial generic_serial(Serial);
-JsonStream json_stream(generic_serial);
+JsonStream json_stream(Serial);
 
 unsigned int print_count = 0;
 
 void setup()
 {
-  generic_serial.begin(BAUDRATE);
+  Serial.begin(BAUDRATE);
 }
 
 

@@ -15,7 +15,6 @@
 #include "Streaming.h"
 #include "Array.h"
 #include "ConstantVariable.h"
-#include "GenericSerial.h"
 #include "ArduinoJson.h"
 
 
@@ -50,8 +49,8 @@ public:
   static const uint8_t DOUBLE_DIGITS_DEFAULT=6;
   static const char EOL='\n';
 
-  JsonStream(GenericSerialBase &serial);
-  void setSerial(GenericSerialBase &serial);
+  JsonStream(Stream &stream);
+  void setStream(Stream &stream);
   void beginObject();
   void endObject();
   void beginArray();
@@ -89,7 +88,7 @@ public:
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
-  GenericSerialBase *generic_serial_ptr_;
+  Stream *stream_ptr_;
   bool pretty_print_;
   unsigned char indent_level_;
   bool writing_;
