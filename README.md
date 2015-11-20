@@ -1,4 +1,4 @@
-#JsonPrinter
+#JsonStream
 
 Authors:
 

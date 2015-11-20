@@ -5,7 +5,7 @@
 #include "ConstantVariable.h"
 #include "GenericSerial.h"
 #include "ArduinoJson.h"
-#include "JsonPrinter.h"
+#include "JsonStream.h"
 
 
 char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
@@ -24,7 +24,7 @@ double longitude = root["data"][1];
 const unsigned int BAUDRATE = 9600;
 
 GenericSerial generic_serial(Serial);
-JsonPrinter json_printer(generic_serial);
+JsonStream json_stream(generic_serial);
 
 unsigned int print_count = 0;
 
@@ -38,22 +38,22 @@ void loop()
 {
   if ((print_count % 2) == 0)
   {
-    json_printer.setPrettyPrint();
+    json_stream.setPrettyPrint();
   }
   else
   {
-    json_printer.setCompactPrint();
+    json_stream.setCompactPrint();
   }
 
-  json_printer.beginObject();
+  json_stream.beginObject();
 
-  json_printer.addKey("json_object");
-  json_printer.add(&root);
+  json_stream.addKey("json_object");
+  json_stream.add(&root);
 
-  json_printer.addKey("json_array");
-  json_printer.add(&data);
+  json_stream.addKey("json_array");
+  json_stream.add(&data);
 
-  json_printer.endObject();
+  json_stream.endObject();
 
   generic_serial.getStream() << "\n";
 

@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------------
-// JsonPrinter.h
+// JsonStream.h
 //
 //
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#ifndef _JSON_PRINTER_H_
-#define _JSON_PRINTER_H_
+#ifndef _JSON_STREAM_H_
+#define _JSON_STREAM_H_
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else
@@ -28,7 +28,7 @@ public:
   bool inside_object_;
 };
 
-class JsonPrinter
+class JsonStream
 {
 public:
   enum ResponseCodes
@@ -50,7 +50,7 @@ public:
   static const uint8_t DOUBLE_DIGITS_DEFAULT=6;
   static const char EOL='\n';
 
-  JsonPrinter(GenericSerialBase &serial);
+  JsonStream(GenericSerialBase &serial);
   void setSerial(GenericSerialBase &serial);
   void beginObject();
   void endObject();

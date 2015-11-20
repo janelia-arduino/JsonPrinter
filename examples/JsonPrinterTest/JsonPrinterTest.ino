@@ -5,13 +5,13 @@
 #include "ConstantVariable.h"
 #include "GenericSerial.h"
 #include "ArduinoJson.h"
-#include "JsonPrinter.h"
+#include "JsonStream.h"
 
 
 const unsigned int BAUDRATE = 9600;
 
 GenericSerial generic_serial(Serial);
-JsonPrinter json_printer(generic_serial);
+JsonStream json_stream(generic_serial);
 
 CONSTANT_STRING(constant_string,"I am a constant string!");
 CONSTANT_STRING(constant_string_0,"..0..");
@@ -31,7 +31,7 @@ void setup()
 {
   generic_serial.begin(BAUDRATE);
 
-  json_printer.setPrettyPrint();
+  json_stream.setPrettyPrint();
 }
 
 
@@ -39,101 +39,101 @@ void loop()
 {
   if ((print_count % 2) == 0)
   {
-    json_printer.setPrettyPrint();
+    json_stream.setPrettyPrint();
   }
   else
   {
-    json_printer.setCompactPrint();
+    json_stream.setCompactPrint();
   }
 
-  json_printer.beginObject();
+  json_stream.beginObject();
 
-  json_printer.addKey(constant_string_key);
-  json_printer.add(13);
+  json_stream.addKey(constant_string_key);
+  json_stream.add(13);
 
   const int months = 12;
-  json_printer.add("months",months);
+  json_stream.add("months",months);
 
-  json_printer.addNull("empty");
+  json_stream.addNull("empty");
 
   int test = 123;
-  json_printer.add("test",test);
-  json_printer.add("(bool)test",(bool)test);
+  json_stream.add("test",test);
+  json_stream.add("(bool)test",(bool)test);
 
   bool tested = true;
-  json_printer.add("tested",tested);
+  json_stream.add("tested",tested);
 
-  json_printer.addKey("another_object");
-  json_printer.beginObject();
+  json_stream.addKey("another_object");
+  json_stream.beginObject();
 
-  json_printer.addKey("count");
-  json_printer.beginArray();
-  json_printer.add(1);
-  json_printer.add(2);
-  json_printer.add(3);
-  json_printer.endArray();
+  json_stream.addKey("count");
+  json_stream.beginArray();
+  json_stream.add(1);
+  json_stream.add(2);
+  json_stream.add(3);
+  json_stream.endArray();
 
-  json_printer.add("string",String("red rover"));
-  json_printer.add("chars","jump over");
+  json_stream.add("string",String("red rover"));
+  json_stream.add("chars","jump over");
 
-  json_printer.endObject();
+  json_stream.endObject();
 
-  json_printer.add("constant_string",constant_string);
+  json_stream.add("constant_string",constant_string);
 
-  json_printer.addKey("constant_string_array");
-  json_printer.beginArray();
-  json_printer.add(constant_string_0);
-  json_printer.add(constant_string_1);
-  json_printer.add(constant_string_2);
-  json_printer.add(constant_string_3);
-  json_printer.endArray();
+  json_stream.addKey("constant_string_array");
+  json_stream.beginArray();
+  json_stream.add(constant_string_0);
+  json_stream.add(constant_string_1);
+  json_stream.add(constant_string_2);
+  json_stream.add(constant_string_3);
+  json_stream.endArray();
 
-  json_printer.addKey("String array");
-  json_printer.beginArray();
-  json_printer.add(String("A"));
-  json_printer.add(String("B"));
-  json_printer.add(String("C"));
-  json_printer.endArray();
+  json_stream.addKey("String array");
+  json_stream.beginArray();
+  json_stream.add(String("A"));
+  json_stream.add(String("B"));
+  json_stream.add(String("C"));
+  json_stream.endArray();
 
-  json_printer.addKey("char array array");
-  json_printer.beginArray();
-  json_printer.add("X");
-  json_printer.add("Y");
-  json_printer.add("Z");
-  json_printer.endArray();
+  json_stream.addKey("char array array");
+  json_stream.beginArray();
+  json_stream.add("X");
+  json_stream.add("Y");
+  json_stream.add("Z");
+  json_stream.endArray();
 
-  json_printer.add("response",JsonPrinter::SUCCESS);
-  json_printer.add("error",JsonPrinter::ERROR);
+  json_stream.add("response",JsonStream::SUCCESS);
+  json_stream.add("error",JsonStream::ERROR);
 
-  json_printer.add(constant_string_key,"yep!");
-  json_printer.add(const_string_key,"yep!!");
+  json_stream.add(constant_string_key,"yep!");
+  json_stream.add(const_string_key,"yep!!");
 
-  json_printer.add("baudrate",BAUDRATE);
+  json_stream.add("baudrate",BAUDRATE);
 
-  json_printer.add("constant_string_ptr",constant_string_ptr);
+  json_stream.add("constant_string_ptr",constant_string_ptr);
 
   double pi = 3.141592653589;
-  json_printer.add("pi_default_prec",pi);
-  json_printer.addDouble("pi_2_digit_prec",pi,2);
+  json_stream.add("pi_default_prec",pi);
+  json_stream.addDouble("pi_2_digit_prec",pi,2);
 
-  json_printer.addKey("json_char_write");
+  json_stream.addKey("json_char_write");
   int len = strlen(json);
   for (unsigned int i=0;i<len;++i)
   {
-    json_printer.writeChar(json[i]);
+    json_stream.writeChar(json[i]);
   }
 
-  json_printer.addKey("json_byte_write");
+  json_stream.addKey("json_byte_write");
   len = strlen(json);
   for (unsigned int i=0;i<len;++i)
   {
-    json_printer.writeByte(json[i]);
+    json_stream.writeByte(json[i]);
   }
 
-  json_printer.endObject();
+  json_stream.endObject();
 
-  json_printer.linefeed();
-  json_printer.linefeed();
+  json_stream.linefeed();
+  json_stream.linefeed();
 
   ++print_count;
   delay(2000);
