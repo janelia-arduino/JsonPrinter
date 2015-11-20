@@ -45,15 +45,16 @@ void loop()
 
   json_stream.beginObject();
 
-  json_stream.addKey("json_object");
-  json_stream.add(&root);
+  json_stream.add("json_object",&root);
 
-  json_stream.addKey("json_array");
-  json_stream.add(&data);
+  // newline automatically disabled when inside an object
+  json_stream.newline();
+
+  json_stream.add("json_array",&data);
 
   json_stream.endObject();
 
-  generic_serial.getStream() << "\n";
+  json_stream.newline();
 
   ++print_count;
   delay(2000);

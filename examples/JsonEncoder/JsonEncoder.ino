@@ -3,7 +3,6 @@
 #include "Array.h"
 #include "Flash.h"
 #include "ConstantVariable.h"
-#include "GenericSerial.h"
 #include "ArduinoJson.h"
 #include "JsonStream.h"
 
@@ -45,14 +44,18 @@ void loop()
     json_stream.setCompactPrint();
   }
 
+  // all valid json must begin with an object or array
   json_stream.beginObject();
 
-  json_stream.addKey(constant_string_key);
-  json_stream.add(13);
-
+  // you can add key/value pairs together
   const int months = 12;
   json_stream.add("months",months);
 
+  // or you can add key/value pairs separately
+  json_stream.addKey(constant_string_key);
+  json_stream.add(13);
+
+  // add key with null value
   json_stream.addNull("empty");
 
   int test = 123;
@@ -62,6 +65,7 @@ void loop()
   bool tested = true;
   json_stream.add("tested",tested);
 
+  // add key separately when the value is an array or object
   json_stream.addKey("another_object");
   json_stream.beginObject();
 
@@ -75,6 +79,7 @@ void loop()
   json_stream.add("string",String("red rover"));
   json_stream.add("chars","jump over");
 
+  // when beginning an object or an array do not forget to end it
   json_stream.endObject();
 
   json_stream.add("constant_string",constant_string);
@@ -131,8 +136,17 @@ void loop()
 
   json_stream.endObject();
 
-  json_stream.linefeed();
-  json_stream.linefeed();
+  json_stream.newline();
+  json_stream.newline();
+
+  json_stream.beginArray();
+  json_stream.add(1);
+  json_stream.add(2);
+  // make sure newlines are automatically disabled when inside an array
+  json_stream.newline();
+  json_stream.add(3);
+  json_stream.endArray();
+  json_stream.newline();
 
   ++print_count;
   delay(2000);

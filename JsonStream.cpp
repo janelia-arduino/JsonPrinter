@@ -49,43 +49,43 @@ void JsonStream::setStream(Stream &stream)
 
 void JsonStream::beginObject()
 {
-  if (!jdt_array_.empty())
+  if (!depth_tracker_.empty())
   {
     endArrayItem();
   }
   indent_level_++;
-  jdt_array_.push_back(JsonDepthTracker(true,true));
+  depth_tracker_.push_back(JsonDepthTracker(true,true));
   *stream_ptr_ << "{";
 }
 
 void JsonStream::endObject()
 {
   indent_level_--;
-  if (pretty_print_ && (!jdt_array_.back().first_item_))
+  if (pretty_print_ && (!depth_tracker_.back().first_item_))
   {
     *stream_ptr_ << "\n";
     indent();
   }
-  jdt_array_.pop_back();
+  depth_tracker_.pop_back();
   *stream_ptr_ << "}";
 }
 
 void JsonStream::beginArray()
 {
   indent_level_++;
-  jdt_array_.push_back(JsonDepthTracker(true,false));
+  depth_tracker_.push_back(JsonDepthTracker(true,false));
   *stream_ptr_ << "[";
 }
 
 void JsonStream::endArray()
 {
   indent_level_--;
-  if (pretty_print_ && (!jdt_array_.back().first_item_))
+  if (pretty_print_ && (!depth_tracker_.back().first_item_))
   {
     *stream_ptr_ << "\n";
     indent();
   }
-  jdt_array_.pop_back();
+  depth_tracker_.pop_back();
   *stream_ptr_ << "]";
 }
 
@@ -367,9 +367,12 @@ void JsonStream::addNull()
   *stream_ptr_ << null_constant_string;
 }
 
-void JsonStream::linefeed()
+void JsonStream::newline()
 {
-  *stream_ptr_ << "\n";
+  if (depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\n";
+  }
 }
 
 void JsonStream::writeChar(char c)
@@ -405,13 +408,13 @@ void JsonStream::indent()
 
 void JsonStream::endItem()
 {
-  if (!jdt_array_.back().first_item_)
+  if (!depth_tracker_.back().first_item_)
   {
     *stream_ptr_ << ",";
   }
   else
   {
-    jdt_array_.back().first_item_ = false;
+    depth_tracker_.back().first_item_ = false;
   }
   if (pretty_print_)
   {
@@ -423,7 +426,7 @@ void JsonStream::endItem()
 
 void JsonStream::endArrayItem()
 {
-  if (!jdt_array_.back().inside_object_)
+  if (!depth_tracker_.back().inside_object_)
   {
     endItem();
   }

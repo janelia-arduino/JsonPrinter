@@ -82,7 +82,7 @@ public:
     addKey(key);
     addNull();
   }
-  void linefeed();
+  void newline();
   void writeChar(char c);
   void writeByte(byte b);
 private:
@@ -90,9 +90,9 @@ private:
   static const uint8_t RESPONSE_INDENT=2;
   Stream *stream_ptr_;
   bool pretty_print_;
-  unsigned char indent_level_;
+  byte indent_level_;
   bool writing_;
-  Array<JsonDepthTracker,RESPONSE_DEPTH_MAX> jdt_array_;
+  Array<JsonDepthTracker,RESPONSE_DEPTH_MAX> depth_tracker_;
   void indent();
   void endItem();
   void endArrayItem();
