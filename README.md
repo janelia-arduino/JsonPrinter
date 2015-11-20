@@ -9,7 +9,7 @@ License:
     BSD
 
 
-JSON encoder/decoder that processes streams sequentially to reduce
+JSON encoder/decoder that processes a stream sequentially to reduce
 buffer memory requirements.
 
 [Usage Examples](./examples)
