@@ -70,16 +70,37 @@ void loop()
   unsigned char double_digits = 2;
   json_stream.addDouble(data_2,double_digits);
 
-  // when beginning an object or an array do not forget to end it
+  // after beginning an object or an array do not forget to end it
   json_stream.endArray();
 
-  // when beginning an object or an array do not forget to end it
+  // after beginning an object or an array do not forget to end it
   json_stream.endObject();
 
   // newlines can be written to the stream
   // but the newline method is automatically disabled
   // if inside an array or object
   json_stream.newline();
+
+  Serial << "entire object added as string outside of any other objects:" << "\n";
+  json_stream.add(desired_json);
+  Serial << "\n";
+
+  Serial << "keys and outer quotation marks are not added outside of objects:" << "\n";
+  json_stream.add("desired_json",desired_json);
+  Serial << "\n";
+
+  Serial << "keys and outer quotation marks are added inside of objects:" << "\n";
+  json_stream.beginObject();
+  json_stream.add("desired_json",desired_json);
+  json_stream.endObject();
+  Serial << "\n";
+
+  // you can add JSON stored as a string, but it is not validated in any way
+  Serial << "JSON strings are never quoted:" << "\n";
+  json_stream.beginObject();
+  json_stream.addJson("desired_json",desired_json);
+  json_stream.endObject();
+  Serial << "\n";
 
   ++print_count;
   delay(2000);

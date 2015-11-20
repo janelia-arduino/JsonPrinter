@@ -103,42 +103,60 @@ template <>
 void JsonStream::addKey<const char *>(const char *key)
 {
   endItem();
-  *stream_ptr_ << "\"" << key << "\"" << ":";
+  if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
+  {
+    *stream_ptr_ << "\"" << key << "\"" << ":";
+  }
 }
 
 template <>
 void JsonStream::addKey<char *>(char *key)
 {
   endItem();
-  *stream_ptr_ << "\"" << key << "\"" << ":";
+  if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
+  {
+    *stream_ptr_ << "\"" << key << "\"" << ":";
+  }
 }
 
 template <>
 void JsonStream::addKey<String>(String key)
 {
   endItem();
-  *stream_ptr_ << "\"" << key << "\"" << ":";
+  if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
+  {
+    *stream_ptr_ << "\"" << key << "\"" << ":";
+  }
 }
 
 template <>
 void JsonStream::addKey<ConstantString>(ConstantString key)
 {
   endItem();
-  *stream_ptr_ << "\"" << key << "\"" << ":";
+  if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
+  {
+    *stream_ptr_ << "\"" << key << "\"" << ":";
+  }
 }
 
 template <>
 void JsonStream::addKey<ConstantString const *>(ConstantString const *key_ptr)
 {
   endItem();
-  *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+  if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
+  {
+    *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+  }
 }
 
 template <>
 void JsonStream::addKey<ConstantString *>(ConstantString *key_ptr)
 {
   endItem();
-  *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+  if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
+  {
+    *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+  }
 }
 
 template <>
@@ -152,49 +170,98 @@ template <>
 void JsonStream::add<const char*>(const char *value)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << value << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << value << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << value;
+  }
 }
 
 template <>
 void JsonStream::add<char*>(char *value)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << value << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << value << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << value;
+  }
 }
 
 template <>
 void JsonStream::add<String>(String value)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << value << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << value << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << value;
+  }
 }
 
 template <>
 void JsonStream::add<String&>(String &value)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << value << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << value << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << value;
+  }
 }
 
 template <>
 void JsonStream::add<ConstantString>(ConstantString value)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << value << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << value << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << value;
+  }
 }
 
 template <>
 void JsonStream::add<ConstantString *>(ConstantString *value_ptr)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << *value_ptr << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << *value_ptr << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << *value_ptr;
+  }
 }
 
 template <>
 void JsonStream::add<ConstantString const *>(ConstantString const *value_ptr)
 {
   endArrayItem();
-  *stream_ptr_ << "\"" << *value_ptr << "\"";
+  if (!depth_tracker_.empty())
+  {
+    *stream_ptr_ << "\"" << *value_ptr << "\"";
+  }
+  else
+  {
+    *stream_ptr_ << *value_ptr;
+  }
 }
 
 template <>
@@ -367,6 +434,69 @@ void JsonStream::addNull()
   *stream_ptr_ << null_constant_string;
 }
 
+template <>
+void JsonStream::addJson<const char*>(const char *value)
+{
+  endArrayItem();
+  *stream_ptr_ << value;
+}
+
+template <>
+void JsonStream::addJson<char*>(char *value)
+{
+  endArrayItem();
+  *stream_ptr_ << value;
+}
+
+template <>
+void JsonStream::addJson<String>(String value)
+{
+  endArrayItem();
+  *stream_ptr_ << value;
+}
+
+template <>
+void JsonStream::addJson<String&>(String &value)
+{
+  endArrayItem();
+  *stream_ptr_ << value;
+}
+
+template <>
+void JsonStream::addJson<ConstantString>(ConstantString value)
+{
+  endArrayItem();
+  *stream_ptr_ << value;
+}
+
+template <>
+void JsonStream::addJson<ConstantString *>(ConstantString *value_ptr)
+{
+  endArrayItem();
+  *stream_ptr_ << *value_ptr;
+}
+
+template <>
+void JsonStream::addJson<ConstantString const *>(ConstantString const *value_ptr)
+{
+  endArrayItem();
+  *stream_ptr_ << *value_ptr;
+}
+
+template <>
+void JsonStream::addJson<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
+{
+  endArrayItem();
+  array_ptr->printTo(*stream_ptr_);
+}
+
+template <>
+void JsonStream::addJson<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
+{
+  endArrayItem();
+  object_ptr->printTo(*stream_ptr_);
+}
+
 void JsonStream::newline()
 {
   if (depth_tracker_.empty())
@@ -408,19 +538,22 @@ void JsonStream::indent()
 
 void JsonStream::endItem()
 {
-  if (!depth_tracker_.back().first_item_)
+  if (!depth_tracker_.empty())
   {
-    *stream_ptr_ << ",";
+    if (!depth_tracker_.back().first_item_)
+    {
+      *stream_ptr_ << ",";
+    }
+    else
+    {
+      depth_tracker_.back().first_item_ = false;
+    }
+    if (pretty_print_)
+    {
+      *stream_ptr_ << "\n";
+    }
+    indent();
   }
-  else
-  {
-    depth_tracker_.back().first_item_ = false;
-  }
-  if (pretty_print_)
-  {
-    *stream_ptr_ << "\n";
-  }
-  indent();
   writing_ = false;
 }
 

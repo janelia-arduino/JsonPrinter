@@ -79,7 +79,7 @@ void loop()
   json_stream.add("string",String("red rover"));
   json_stream.add("chars","jump over");
 
-  // when beginning an object or an array do not forget to end it
+  // after beginning an object or an array do not forget to end it
   json_stream.endObject();
 
   json_stream.add("constant_string",constant_string);

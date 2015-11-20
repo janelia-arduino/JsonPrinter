@@ -50,7 +50,11 @@ void loop()
   // newline automatically disabled when inside an object
   json_stream.newline();
 
+  // you can either use add
   json_stream.add("json_array",&data);
+
+  // or you can use addJson
+  json_stream.addJson("json_array2",&data);
 
   json_stream.endObject();
 

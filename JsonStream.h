@@ -82,6 +82,14 @@ public:
     addKey(key);
     addNull();
   }
+  template<typename T>
+  void addJson(T value);
+  template<typename K, typename T>
+  void addJson(K key, T value)
+  {
+    addKey(key);
+    addJson(value);
+  }
   void newline();
   void writeChar(char c);
   void writeByte(byte b);
