@@ -98,7 +98,7 @@ public:
 
   // decoder methods
   int available();
-  int readJsonIntoBuffer(char *buffer, int buffer_size);
+  int readJsonIntoBuffer(char buffer[], unsigned int buffer_size);
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
