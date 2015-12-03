@@ -47,6 +47,7 @@ void JsonStream::setStream(Stream &stream)
   stream_ptr_ = &stream;
 }
 
+// encoder methods
 void JsonStream::beginObject()
 {
   if (!depth_tracker_.empty())
@@ -100,74 +101,74 @@ void JsonStream::setPrettyPrint()
 }
 
 template <>
-void JsonStream::addKey<const char *>(const char *key)
+void JsonStream::writeName<const char *>(const char *name)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << key << "\"" << ":";
+    *stream_ptr_ << "\"" << name << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::addKey<char *>(char *key)
+void JsonStream::writeName<char *>(char *name)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << key << "\"" << ":";
+    *stream_ptr_ << "\"" << name << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::addKey<String>(String key)
+void JsonStream::writeName<String>(String name)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << key << "\"" << ":";
+    *stream_ptr_ << "\"" << name << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::addKey<ConstantString>(ConstantString key)
+void JsonStream::writeName<ConstantString>(ConstantString name)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << key << "\"" << ":";
+    *stream_ptr_ << "\"" << name << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::addKey<ConstantString const *>(ConstantString const *key_ptr)
+void JsonStream::writeName<ConstantString const *>(ConstantString const *name_ptr)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+    *stream_ptr_ << "\"" << *name_ptr << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::addKey<ConstantString *>(ConstantString *key_ptr)
+void JsonStream::writeName<ConstantString *>(ConstantString *name_ptr)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+    *stream_ptr_ << "\"" << *name_ptr << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::add<char>(char value)
+void JsonStream::write<char>(char value)
 {
   endArrayItem();
   *stream_ptr_ << "\"" << value << "\"";
 }
 
 template <>
-void JsonStream::add<const char*>(const char *value)
+void JsonStream::write<const char*>(const char *value)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -181,7 +182,7 @@ void JsonStream::add<const char*>(const char *value)
 }
 
 template <>
-void JsonStream::add<char*>(char *value)
+void JsonStream::write<char*>(char *value)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -195,7 +196,7 @@ void JsonStream::add<char*>(char *value)
 }
 
 template <>
-void JsonStream::add<String>(String value)
+void JsonStream::write<String>(String value)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -209,7 +210,7 @@ void JsonStream::add<String>(String value)
 }
 
 template <>
-void JsonStream::add<String&>(String &value)
+void JsonStream::write<String&>(String &value)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -223,7 +224,7 @@ void JsonStream::add<String&>(String &value)
 }
 
 template <>
-void JsonStream::add<ConstantString>(ConstantString value)
+void JsonStream::write<ConstantString>(ConstantString value)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -237,7 +238,7 @@ void JsonStream::add<ConstantString>(ConstantString value)
 }
 
 template <>
-void JsonStream::add<ConstantString *>(ConstantString *value_ptr)
+void JsonStream::write<ConstantString *>(ConstantString *value_ptr)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -251,7 +252,7 @@ void JsonStream::add<ConstantString *>(ConstantString *value_ptr)
 }
 
 template <>
-void JsonStream::add<ConstantString const *>(ConstantString const *value_ptr)
+void JsonStream::write<ConstantString const *>(ConstantString const *value_ptr)
 {
   endArrayItem();
   if (!depth_tracker_.empty())
@@ -265,56 +266,56 @@ void JsonStream::add<ConstantString const *>(ConstantString const *value_ptr)
 }
 
 template <>
-void JsonStream::add<unsigned char>(unsigned char value)
+void JsonStream::write<unsigned char>(unsigned char value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<int>(int value)
+void JsonStream::write<int>(int value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<unsigned int>(unsigned int value)
+void JsonStream::write<unsigned int>(unsigned int value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<long>(long value)
+void JsonStream::write<long>(long value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<unsigned long>(unsigned long value)
+void JsonStream::write<unsigned long>(unsigned long value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<long long>(long long value)
+void JsonStream::write<long long>(long long value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<unsigned long long>(unsigned long long value)
+void JsonStream::write<unsigned long long>(unsigned long long value)
 {
   endArrayItem();
   *stream_ptr_ <<  _DEC(value);
 }
 
 template <>
-void JsonStream::add<JsonStream::ResponseCodes>(JsonStream::ResponseCodes value)
+void JsonStream::write<JsonStream::ResponseCodes>(JsonStream::ResponseCodes value)
 {
   endArrayItem();
   if (!pretty_print_)
@@ -336,7 +337,7 @@ void JsonStream::add<JsonStream::ResponseCodes>(JsonStream::ResponseCodes value)
 }
 
 template <>
-void JsonStream::add<JsonStream::JsonTypes>(JsonStream::JsonTypes value)
+void JsonStream::write<JsonStream::JsonTypes>(JsonStream::JsonTypes value)
 {
   endArrayItem();
   switch (value)
@@ -366,7 +367,7 @@ void JsonStream::add<JsonStream::JsonTypes>(JsonStream::JsonTypes value)
 }
 
 template <>
-void JsonStream::add<double>(double value)
+void JsonStream::write<double>(double value)
 {
   endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
@@ -375,7 +376,7 @@ void JsonStream::add<double>(double value)
 }
 
 template <>
-void JsonStream::add<float>(float value)
+void JsonStream::write<float>(float value)
 {
   endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
@@ -384,7 +385,7 @@ void JsonStream::add<float>(float value)
 }
 
 template <>
-void JsonStream::addDouble<double>(double value, unsigned char prec)
+void JsonStream::writeDouble<double>(double value, unsigned char prec)
 {
   endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
@@ -393,7 +394,7 @@ void JsonStream::addDouble<double>(double value, unsigned char prec)
 }
 
 template <>
-void JsonStream::addDouble<float>(float value, unsigned char prec)
+void JsonStream::writeDouble<float>(float value, unsigned char prec)
 {
   endArrayItem();
   char value_char_array[STRING_LENGTH_DOUBLE];
@@ -402,7 +403,7 @@ void JsonStream::addDouble<float>(float value, unsigned char prec)
 }
 
 template <>
-void JsonStream::add<bool>(bool value)
+void JsonStream::write<bool>(bool value)
 {
   if (value)
   {
@@ -415,89 +416,89 @@ void JsonStream::add<bool>(bool value)
 }
 
 template <>
-void JsonStream::add<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
+void JsonStream::write<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
 {
   endArrayItem();
   array_ptr->printTo(*stream_ptr_);
 }
 
 template <>
-void JsonStream::add<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
+void JsonStream::write<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
 {
   endArrayItem();
   object_ptr->printTo(*stream_ptr_);
 }
 
-void JsonStream::addNull()
+void JsonStream::writeNull()
 {
   endArrayItem();
   *stream_ptr_ << null_constant_string;
 }
 
 template <>
-void JsonStream::addJson<const char*>(const char *value)
+void JsonStream::writeJson<const char*>(const char *value)
 {
   endArrayItem();
   *stream_ptr_ << value;
 }
 
 template <>
-void JsonStream::addJson<char*>(char *value)
+void JsonStream::writeJson<char*>(char *value)
 {
   endArrayItem();
   *stream_ptr_ << value;
 }
 
 template <>
-void JsonStream::addJson<String>(String value)
+void JsonStream::writeJson<String>(String value)
 {
   endArrayItem();
   *stream_ptr_ << value;
 }
 
 template <>
-void JsonStream::addJson<String&>(String &value)
+void JsonStream::writeJson<String&>(String &value)
 {
   endArrayItem();
   *stream_ptr_ << value;
 }
 
 template <>
-void JsonStream::addJson<ConstantString>(ConstantString value)
+void JsonStream::writeJson<ConstantString>(ConstantString value)
 {
   endArrayItem();
   *stream_ptr_ << value;
 }
 
 template <>
-void JsonStream::addJson<ConstantString *>(ConstantString *value_ptr)
+void JsonStream::writeJson<ConstantString *>(ConstantString *value_ptr)
 {
   endArrayItem();
   *stream_ptr_ << *value_ptr;
 }
 
 template <>
-void JsonStream::addJson<ConstantString const *>(ConstantString const *value_ptr)
+void JsonStream::writeJson<ConstantString const *>(ConstantString const *value_ptr)
 {
   endArrayItem();
   *stream_ptr_ << *value_ptr;
 }
 
 template <>
-void JsonStream::addJson<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
+void JsonStream::writeJson<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
 {
   endArrayItem();
   array_ptr->printTo(*stream_ptr_);
 }
 
 template <>
-void JsonStream::addJson<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
+void JsonStream::writeJson<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
 {
   endArrayItem();
   object_ptr->printTo(*stream_ptr_);
 }
 
-void JsonStream::newline()
+void JsonStream::writeNewline()
 {
   if (depth_tracker_.empty())
   {
@@ -525,6 +526,18 @@ void JsonStream::writeByte(byte b)
   *stream_ptr_ << b;
 }
 
+// decoder methods
+int JsonStream::available()
+{
+  return stream_ptr_->available();
+}
+
+int JsonStream::readJsonIntoBuffer(char *buffer, int buffer_size)
+{
+  return stream_ptr_->readBytesUntil(EOL,buffer,buffer_size);
+}
+
+// private methods
 void JsonStream::indent()
 {
   if (pretty_print_)

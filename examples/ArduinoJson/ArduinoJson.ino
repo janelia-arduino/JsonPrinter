@@ -45,20 +45,20 @@ void loop()
 
   json_stream.beginObject();
 
-  json_stream.add("json_object",&root);
+  json_stream.write("json_object",&root);
 
   // newline automatically disabled when inside an object
-  json_stream.newline();
+  json_stream.writeNewline();
 
-  // you can either use add
-  json_stream.add("json_array",&data);
+  // you can either use write
+  json_stream.write("json_array",&data);
 
-  // or you can use addJson
-  json_stream.addJson("json_array2",&data);
+  // or you can use writeJson
+  json_stream.writeJson("json_array2",&data);
 
   json_stream.endObject();
 
-  json_stream.newline();
+  json_stream.writeNewline();
 
   ++print_count;
   delay(2000);

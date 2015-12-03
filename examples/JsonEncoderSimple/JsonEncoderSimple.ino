@@ -45,30 +45,30 @@ void loop()
   // all valid json must begin with an object or array
   json_stream.beginObject();
 
-  // you can add key/value pairs
-  json_stream.add("sensor","gps");
+  // you can write name/value pairs
+  json_stream.write("sensor","gps");
 
-  // the key/value pairs can be many different types
+  // the name/value pairs can be many different types
   long time = 1351824120;
-  json_stream.add(String("time"),time);
+  json_stream.write(String("time"),time);
 
-  // add key separately when the value is an array or object
-  json_stream.addKey("data");
+  // write name separately when the value is an array or object
+  json_stream.writeName("data");
 
   json_stream.beginArray();
 
-  // add values without keys when inside an array
+  // write values without names when inside an array
   double data_0 = 48.756080;
-  json_stream.add(data_0);
+  json_stream.write(data_0);
 
-  // add as many values as you want
+  // write as many values as you want
   float data_1 = 2.302038;
-  json_stream.add(data_1);
+  json_stream.write(data_1);
 
   // specify precision of doubles if you want
   float data_2 = 2.01;
   unsigned char double_digits = 2;
-  json_stream.addDouble(data_2,double_digits);
+  json_stream.writeDouble(data_2,double_digits);
 
   // after beginning an object or an array do not forget to end it
   json_stream.endArray();
@@ -77,28 +77,28 @@ void loop()
   json_stream.endObject();
 
   // newlines can be written to the stream
-  // but the newline method is automatically disabled
+  // but the writeNewline method is automatically disabled
   // if inside an array or object
-  json_stream.newline();
+  json_stream.writeNewline();
 
-  Serial << "entire object added as string outside of any other objects:" << "\n";
-  json_stream.add(desired_json);
+  Serial << "entire object written as string outside of any other objects:" << "\n";
+  json_stream.write(desired_json);
   Serial << "\n";
 
-  Serial << "keys and outer quotation marks are not added outside of objects:" << "\n";
-  json_stream.add("desired_json",desired_json);
+  Serial << "names and outer quotation marks are not written outside of objects:" << "\n";
+  json_stream.write("desired_json",desired_json);
   Serial << "\n";
 
-  Serial << "keys and outer quotation marks are added inside of objects:" << "\n";
+  Serial << "names and outer quotation marks are written inside of objects:" << "\n";
   json_stream.beginObject();
-  json_stream.add("desired_json",desired_json);
+  json_stream.write("desired_json",desired_json);
   json_stream.endObject();
   Serial << "\n";
 
-  // you can add JSON stored as a string, but it is not validated in any way
+  // you can write JSON stored as a string, but it is not validated in any way
   Serial << "JSON strings are never quoted:" << "\n";
   json_stream.beginObject();
-  json_stream.addJson("desired_json",desired_json);
+  json_stream.writeJson("desired_json",desired_json);
   json_stream.endObject();
   Serial << "\n";
 

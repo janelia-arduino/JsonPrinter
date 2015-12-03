@@ -51,48 +51,54 @@ public:
 
   JsonStream(Stream &stream);
   void setStream(Stream &stream);
+
+  // encoder methods
   void beginObject();
   void endObject();
   void beginArray();
   void endArray();
   void setCompactPrint();
   void setPrettyPrint();
-  template<typename K>
-  void addKey(K key);
+  template<typename N>
+  void writeName(N name);
   template<typename T>
-  void add(T value);
+  void write(T value);
   template<typename T>
-  void addDouble(T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
-  template<typename K, typename T>
-  void add(K key, T value)
+  void writeDouble(T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
+  template<typename N, typename T>
+  void write(N name, T value)
   {
-    addKey(key);
-    add(value);
+    writeName(name);
+    write(value);
   }
-  template<typename K, typename T>
-  void addDouble(K key, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT)
+  template<typename N, typename T>
+  void writeDouble(N name, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT)
   {
-    addKey(key);
-    addDouble(value,prec);
+    writeName(name);
+    writeDouble(value,prec);
   }
-  void addNull();
-  template<typename K>
-  void addNull(K key)
+  void writeNull();
+  template<typename N>
+  void writeNull(N name)
   {
-    addKey(key);
-    addNull();
+    writeName(name);
+    writeNull();
   }
   template<typename T>
-  void addJson(T value);
-  template<typename K, typename T>
-  void addJson(K key, T value)
+  void writeJson(T value);
+  template<typename N, typename T>
+  void writeJson(N name, T value)
   {
-    addKey(key);
-    addJson(value);
+    writeName(name);
+    writeJson(value);
   }
-  void newline();
+  void writeNewline();
   void writeChar(char c);
   void writeByte(byte b);
+
+  // decoder methods
+  int available();
+  int readJsonIntoBuffer(char *buffer, int buffer_size);
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
