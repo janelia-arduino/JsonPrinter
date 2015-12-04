@@ -45,19 +45,19 @@ void loop()
   // all valid json must begin with an object or array
   json_stream.beginObject();
 
-  // you can write name/value pairs
+  // you can write key/value pairs
   json_stream.write("sensor","gps");
 
-  // the name/value pairs can be many different types
+  // the key/value pairs can be many different types
   long time = 1351824120;
   json_stream.write(String("time"),time);
 
-  // write name separately when the value is an array or object
-  json_stream.writeName("data");
+  // write key separately when the value is an array or object
+  json_stream.writeKey("data");
 
   json_stream.beginArray();
 
-  // write values without names when inside an array
+  // write values without keys when inside an array
   double data_0 = 48.756080;
   json_stream.write(data_0);
 
@@ -85,11 +85,11 @@ void loop()
   json_stream.write(desired_json);
   Serial << "\n";
 
-  Serial << "names and outer quotation marks are not written outside of objects:" << "\n";
+  Serial << "keys and outer quotation marks are not written outside of objects:" << "\n";
   json_stream.write("desired_json",desired_json);
   Serial << "\n";
 
-  Serial << "names and outer quotation marks are written inside of objects:" << "\n";
+  Serial << "keys and outer quotation marks are written inside of objects:" << "\n";
   json_stream.beginObject();
   json_stream.write("desired_json",desired_json);
   json_stream.endObject();

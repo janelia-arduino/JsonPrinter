@@ -59,37 +59,37 @@ public:
   void endArray();
   void setCompactPrint();
   void setPrettyPrint();
-  template<typename N>
-  void writeName(N name);
+  template<typename K>
+  void writeKey(K key);
   template<typename T>
   void write(T value);
   template<typename T>
   void writeDouble(T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
-  template<typename N, typename T>
-  void write(N name, T value)
+  template<typename K, typename T>
+  void write(K key, T value)
   {
-    writeName(name);
+    writeKey(key);
     write(value);
   }
-  template<typename N, typename T>
-  void writeDouble(N name, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT)
+  template<typename K, typename T>
+  void writeDouble(K key, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT)
   {
-    writeName(name);
+    writeKey(key);
     writeDouble(value,prec);
   }
   void writeNull();
-  template<typename N>
-  void writeNull(N name)
+  template<typename K>
+  void writeNull(K key)
   {
-    writeName(name);
+    writeKey(key);
     writeNull();
   }
   template<typename T>
   void writeJson(T value);
-  template<typename N, typename T>
-  void writeJson(N name, T value)
+  template<typename K, typename T>
+  void writeJson(K key, T value)
   {
-    writeName(name);
+    writeKey(key);
     writeJson(value);
   }
   void writeNewline();

@@ -101,62 +101,62 @@ void JsonStream::setPrettyPrint()
 }
 
 template <>
-void JsonStream::writeName<const char *>(const char *name)
+void JsonStream::writeKey<const char *>(const char *key)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << name << "\"" << ":";
+    *stream_ptr_ << "\"" << key << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::writeName<char *>(char *name)
+void JsonStream::writeKey<char *>(char *key)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << name << "\"" << ":";
+    *stream_ptr_ << "\"" << key << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::writeName<String>(String name)
+void JsonStream::writeKey<String>(String key)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << name << "\"" << ":";
+    *stream_ptr_ << "\"" << key << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::writeName<ConstantString>(ConstantString name)
+void JsonStream::writeKey<ConstantString>(ConstantString key)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << name << "\"" << ":";
+    *stream_ptr_ << "\"" << key << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::writeName<ConstantString const *>(ConstantString const *name_ptr)
+void JsonStream::writeKey<ConstantString const *>(ConstantString const *key_ptr)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << *name_ptr << "\"" << ":";
+    *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
   }
 }
 
 template <>
-void JsonStream::writeName<ConstantString *>(ConstantString *name_ptr)
+void JsonStream::writeKey<ConstantString *>(ConstantString *key_ptr)
 {
   endItem();
   if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
   {
-    *stream_ptr_ << "\"" << *name_ptr << "\"" << ":";
+    *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
   }
 }
 

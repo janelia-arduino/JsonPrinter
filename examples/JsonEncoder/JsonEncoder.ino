@@ -16,8 +16,8 @@ CONSTANT_STRING(constant_string_0,"..0..");
 CONSTANT_STRING(constant_string_1,"..1..");
 CONSTANT_STRING(constant_string_2,"..2..");
 CONSTANT_STRING(constant_string_3,"..3..");
-CONSTANT_STRING(constant_string_name,"constant_string");
-const String const_string_name("constString");
+CONSTANT_STRING(constant_string_key,"constant_string");
+const String const_string_key("constString");
 ConstantString* constant_string_ptr = &constant_string;
 
 char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
@@ -47,15 +47,15 @@ void loop()
   // all valid json must begin with an object or array
   json_stream.beginObject();
 
-  // you can write name/value pairs together
+  // you can write key/value pairs together
   const int months = 12;
   json_stream.write("months",months);
 
-  // or you can write name/value pairs separately
-  json_stream.writeName(constant_string_name);
+  // or you can write key/value pairs separately
+  json_stream.writeKey(constant_string_key);
   json_stream.write(13);
 
-  // write name with null value
+  // write key with null value
   json_stream.writeNull("empty");
 
   int test = 123;
@@ -65,11 +65,11 @@ void loop()
   bool tested = true;
   json_stream.write("tested",tested);
 
-  // write name separately when the value is an array or object
-  json_stream.writeName("another_object");
+  // write key separately when the value is an array or object
+  json_stream.writeKey("another_object");
   json_stream.beginObject();
 
-  json_stream.writeName("count");
+  json_stream.writeKey("count");
   json_stream.beginArray();
   json_stream.write(1);
   json_stream.write(2);
@@ -84,7 +84,7 @@ void loop()
 
   json_stream.write("constant_string",constant_string);
 
-  json_stream.writeName("constant_string_array");
+  json_stream.writeKey("constant_string_array");
   json_stream.beginArray();
   json_stream.write(constant_string_0);
   json_stream.write(constant_string_1);
@@ -92,14 +92,14 @@ void loop()
   json_stream.write(constant_string_3);
   json_stream.endArray();
 
-  json_stream.writeName("String array");
+  json_stream.writeKey("String array");
   json_stream.beginArray();
   json_stream.write(String("A"));
   json_stream.write(String("B"));
   json_stream.write(String("C"));
   json_stream.endArray();
 
-  json_stream.writeName("char array array");
+  json_stream.writeKey("char array array");
   json_stream.beginArray();
   json_stream.write("X");
   json_stream.write("Y");
@@ -109,8 +109,8 @@ void loop()
   json_stream.write("response",JsonStream::SUCCESS);
   json_stream.write("error",JsonStream::ERROR);
 
-  json_stream.write(constant_string_name,"yep!");
-  json_stream.write(const_string_name,"yep!!");
+  json_stream.write(constant_string_key,"yep!");
+  json_stream.write(const_string_key,"yep!!");
 
   json_stream.write("baudrate",BAUDRATE);
 
@@ -120,14 +120,14 @@ void loop()
   json_stream.write("pi_default_prec",pi);
   json_stream.writeDouble("pi_2_digit_prec",pi,2);
 
-  json_stream.writeName("json_char_write");
+  json_stream.writeKey("json_char_write");
   int len = strlen(json);
   for (unsigned int i=0;i<len;++i)
   {
     json_stream.writeChar(json[i]);
   }
 
-  json_stream.writeName("json_byte_write");
+  json_stream.writeKey("json_byte_write");
   len = strlen(json);
   for (unsigned int i=0;i<len;++i)
   {
