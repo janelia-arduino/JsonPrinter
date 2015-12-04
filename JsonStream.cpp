@@ -534,7 +534,21 @@ int JsonStream::available()
 
 int JsonStream::readJsonIntoBuffer(char buffer[], unsigned int buffer_size)
 {
-  return stream_ptr_->readBytesUntil(EOL,buffer,buffer_size);
+  unsigned int bytes_read = stream_ptr_->readBytesUntil(EOL,buffer,buffer_size);
+  if (bytes_read < buffer_size)
+  {
+    // terminate string
+    buffer[bytes_read] = 0;
+  }
+  else
+  {
+    // set buffer to empty string
+    buffer[0] = 0;
+    // clear stream of remaining characters
+    stream_ptr_->find(EOL);
+    return -1;
+  }
+  return bytes_read;
 }
 
 // private methods
