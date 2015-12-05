@@ -51,6 +51,7 @@ public:
 
   JsonStream(Stream &stream);
   void setStream(Stream &stream);
+  Stream& getStream();
 
   // encoder methods
   void beginObject();
@@ -99,6 +100,7 @@ public:
   // decoder methods
   int available();
   int readJsonIntoBuffer(char buffer[], unsigned int buffer_size);
+  char readChar();
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;

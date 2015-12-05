@@ -47,6 +47,11 @@ void JsonStream::setStream(Stream &stream)
   stream_ptr_ = &stream;
 }
 
+Stream& JsonStream::getStream()
+{
+  return *stream_ptr_;
+}
+
 // encoder methods
 void JsonStream::beginObject()
 {
@@ -549,6 +554,11 @@ int JsonStream::readJsonIntoBuffer(char buffer[], unsigned int buffer_size)
     return -1;
   }
   return bytes_read;
+}
+
+char JsonStream::readChar()
+{
+  return stream_ptr_->read();
 }
 
 // private methods
