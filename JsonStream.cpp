@@ -410,6 +410,7 @@ void JsonStream::writeDouble<float>(float value, unsigned char prec)
 template <>
 void JsonStream::write<bool>(bool value)
 {
+  endArrayItem();
   if (value)
   {
     *stream_ptr_ <<  true_constant_string;
