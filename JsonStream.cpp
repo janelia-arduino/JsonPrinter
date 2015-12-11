@@ -550,7 +550,10 @@ int JsonStream::readJsonIntoBuffer(char buffer[], unsigned int buffer_size)
     // set buffer to empty string
     buffer[0] = 0;
     // clear stream of remaining characters
-    stream_ptr_->find(EOL);
+    char EOL_STR[2];
+    EOL_STR[0] = EOL;
+    EOL_STR[1] = 0;
+    stream_ptr_->find(EOL_STR);
     return -1;
   }
   return bytes_read;
