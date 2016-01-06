@@ -30,11 +30,6 @@ public:
 class JsonStream
 {
 public:
-  enum ResponseCodes
-    {
-      ERROR=0,
-      SUCCESS=1,
-    };
   enum JsonTypes
     {
       LONG_TYPE,
@@ -49,6 +44,7 @@ public:
   static const uint8_t DOUBLE_DIGITS_DEFAULT=6;
   static const char EOL='\n';
 
+  JsonStream();
   JsonStream(Stream &stream);
   void setStream(Stream &stream);
   Stream& getStream();

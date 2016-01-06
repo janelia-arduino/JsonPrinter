@@ -106,9 +106,6 @@ void loop()
   json_stream.write("Z");
   json_stream.endArray();
 
-  json_stream.write("response",JsonStream::SUCCESS);
-  json_stream.write("error",JsonStream::ERROR);
-
   json_stream.write(constant_string_key,"yep!");
   json_stream.write(const_string_key,"yep!!");
 
