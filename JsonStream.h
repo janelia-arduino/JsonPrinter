@@ -14,6 +14,7 @@
 #endif
 #include "Streaming.h"
 #include "Array.h"
+#include "Vector.h"
 #include "ConstantVariable.h"
 #include "ArduinoJson.h"
 
@@ -92,6 +93,64 @@ public:
   void writeNewline();
   void writeChar(char c);
   void writeByte(byte b);
+  template <typename T, size_t N>
+  void write(T (&values)[N])
+  {
+    if (stream_ptr_ != NULL)
+    {
+      endArrayItem();
+      beginArray();
+      for (int i=0;i<N;++i)
+      {
+        write(values[i]);
+      }
+      endArray();
+    }
+  }
+  template <size_t N>
+  void write(const char (&values)[N])
+  {
+    write<const char *>(values);
+  }
+  template <size_t N>
+  void write(char (&values)[N])
+  {
+    write<char *>(values);
+  }
+  template <typename K, typename T, size_t N>
+  void write(K key, T (&values)[N])
+  {
+    writeKey(key);
+    write(values);
+  }
+  template <typename T, size_t N>
+  void write(Array<T,N> values)
+  {
+    if (stream_ptr_ != NULL)
+    {
+      endArrayItem();
+      beginArray();
+      for (int i=0;i<N;++i)
+      {
+        write(values[i]);
+      }
+      endArray();
+    }
+  }
+  template <typename T>
+  void write(Vector<T> values)
+  {
+    if (stream_ptr_ != NULL)
+    {
+      endArrayItem();
+      beginArray();
+      for (int i=0;i<values.size();++i)
+      {
+        write(values[i]);
+      }
+      endArray();
+    }
+  }
 
   // decoder methods
   int available();

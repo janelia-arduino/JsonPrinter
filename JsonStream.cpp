@@ -211,7 +211,7 @@ void JsonStream::write<char>(char value)
 }
 
 template <>
-void JsonStream::write<const char*>(const char *value)
+void JsonStream::write<const char *>(const char *value)
 {
   if (stream_ptr_ != NULL)
   {
@@ -228,7 +228,7 @@ void JsonStream::write<const char*>(const char *value)
 }
 
 template <>
-void JsonStream::write<char*>(char *value)
+void JsonStream::write<char *>(char *value)
 {
   if (stream_ptr_ != NULL)
   {
@@ -498,7 +498,7 @@ void JsonStream::write<bool>(bool value)
 }
 
 template <>
-void JsonStream::write<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
+void JsonStream::write<ArduinoJson::JsonArray *>(ArduinoJson::JsonArray *array_ptr)
 {
   if (stream_ptr_ != NULL)
   {
@@ -508,7 +508,7 @@ void JsonStream::write<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_pt
 }
 
 template <>
-void JsonStream::write<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
+void JsonStream::write<ArduinoJson::JsonObject *>(ArduinoJson::JsonObject *object_ptr)
 {
   if (stream_ptr_ != NULL)
   {
@@ -527,7 +527,7 @@ void JsonStream::writeNull()
 }
 
 template <>
-void JsonStream::writeJson<const char*>(const char *value)
+void JsonStream::writeJson<const char *>(const char *value)
 {
   if (stream_ptr_ != NULL)
   {
@@ -537,7 +537,7 @@ void JsonStream::writeJson<const char*>(const char *value)
 }
 
 template <>
-void JsonStream::writeJson<char*>(char *value)
+void JsonStream::writeJson<char *>(char *value)
 {
   if (stream_ptr_ != NULL)
   {
@@ -597,7 +597,7 @@ void JsonStream::writeJson<ConstantString const *>(ConstantString const *value_p
 }
 
 template <>
-void JsonStream::writeJson<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *array_ptr)
+void JsonStream::writeJson<ArduinoJson::JsonArray *>(ArduinoJson::JsonArray *array_ptr)
 {
   if (stream_ptr_ != NULL)
   {
@@ -607,7 +607,7 @@ void JsonStream::writeJson<ArduinoJson::JsonArray*>(ArduinoJson::JsonArray *arra
 }
 
 template <>
-void JsonStream::writeJson<ArduinoJson::JsonObject*>(ArduinoJson::JsonObject *object_ptr)
+void JsonStream::writeJson<ArduinoJson::JsonObject *>(ArduinoJson::JsonObject *object_ptr)
 {
   if (stream_ptr_ != NULL)
   {

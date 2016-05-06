@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "Streaming.h"
 #include "Array.h"
-#include "Flash.h"
+#include "Vector.h"
 #include "ConstantVariable.h"
 #include "ArduinoJson.h"
 #include "JsonStream.h"
@@ -15,7 +15,7 @@ JsonStream json_stream(Serial);
 // {"sensor":"gps","time":1351824120,"data":[48.756080,2.302038,2.01]}
 
 // when saving JSON in a char array backslash escape string quotes
-char desired_json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038,2.01]}";
+const char desired_json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038,2.01]}";
 
 unsigned int print_count = 0;
 
@@ -99,6 +99,28 @@ void loop()
   Serial << "JSON strings are never quoted:" << "\n";
   json_stream.beginObject();
   json_stream.writeJson("desired_json",desired_json);
+  json_stream.endObject();
+  Serial << "\n";
+
+  // you can write c-style arrays
+  int c_style_array[5] = {5,4,3,2,1};
+  json_stream.beginObject();
+  json_stream.write("c_style_array",c_style_array);
+  json_stream.endObject();
+  Serial << "\n";
+
+  // you can write Arrays
+  Array<int,5> array(c_style_array);
+  json_stream.beginObject();
+  json_stream.write("array",array);
+  json_stream.endObject();
+  Serial << "\n";
+
+  // you can write Vectors
+  Vector<int> vector;
+  vector.setStorage(c_style_array,5);
+  json_stream.beginObject();
+  json_stream.write("vector",vector);
   json_stream.endObject();
   Serial << "\n";
 
