@@ -18,6 +18,7 @@ CONSTANT_STRING(bool_constant_string,"\"bool\"");
 CONSTANT_STRING(string_constant_string,"\"string\"");
 CONSTANT_STRING(object_constant_string,"\"object\"");
 CONSTANT_STRING(array_constant_string,"\"array\"");
+CONSTANT_STRING(value_constant_string,"\"value\"");
 
 JsonDepthTracker::JsonDepthTracker()
 {
@@ -427,6 +428,9 @@ void JsonStream::write<JsonStream::JsonTypes>(JsonStream::JsonTypes value)
         break;
       case ARRAY_TYPE:
         *stream_ptr_ <<  array_constant_string;
+        break;
+      case VALUE_TYPE:
+        *stream_ptr_ <<  value_constant_string;
         break;
     }
   }
