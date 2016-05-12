@@ -109,6 +109,19 @@ void loop()
   json_stream.endObject();
   Serial << "\n";
 
+  // you can write c-style arrays with non-const length
+  int array_length = 5;
+  int c_style_array_non_const[array_length];
+  c_style_array_non_const[0] = 5;
+  c_style_array_non_const[1] = 1;
+  c_style_array_non_const[2] = 4;
+  c_style_array_non_const[3] = 3;
+  c_style_array_non_const[4] = 2;
+  json_stream.beginObject();
+  json_stream.write("c_style_array_non_const",c_style_array_non_const,array_length);
+  json_stream.endObject();
+  Serial << "\n";
+
   // you can write Arrays
   Array<int,5> array(c_style_array);
   json_stream.beginObject();

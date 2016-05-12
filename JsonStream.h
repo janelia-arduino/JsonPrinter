@@ -7,10 +7,15 @@
 // ----------------------------------------------------------------------------
 #ifndef _JSON_STREAM_H_
 #define _JSON_STREAM_H_
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
+#ifdef ARDUINO
+    #if ARDUINO >= 100
+        #include <Arduino.h>
+    #else
+        #include <WProgram.h>
+    #endif
 #else
-#include "WProgram.h"
+#include <cstddef>
+#include <cstring>
 #endif
 #include "Streaming.h"
 #include "Array.h"
@@ -108,6 +113,20 @@ public:
       endArray();
     }
   }
+  template <typename T>
+  void write(T *values, const size_t N)
+  {
+    if (stream_ptr_ != NULL)
+    {
+      endArrayItem();
+      beginArray();
+      for (int i=0;i<N;++i)
+      {
+        write(values[i]);
+      }
+      endArray();
+    }
+  }
   template <size_t N>
   void write(const char (&values)[N])
   {
@@ -123,6 +142,12 @@ public:
   {
     writeKey(key);
     write(values);
+  }
+  template <typename K, typename T>
+  void write(K key, T *values, const size_t N)
+  {
+    writeKey(key);
+    write(values,N);
   }
   template <typename T, size_t N>
   void write(Array<T,N> values)
