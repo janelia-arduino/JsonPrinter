@@ -114,7 +114,7 @@ public:
     }
   }
   template <typename T>
-  void write(T *values, const size_t N)
+  void writeArray(T *values, const size_t N)
   {
     if (stream_ptr_ != NULL)
     {
@@ -147,7 +147,7 @@ public:
   void write(K key, T *values, const size_t N)
   {
     writeKey(key);
-    write(values,N);
+    writeArray(values,N);
   }
   template <typename T, size_t N>
   void write(Array<T,N> values)

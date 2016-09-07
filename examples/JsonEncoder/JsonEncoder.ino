@@ -16,6 +16,13 @@ CONSTANT_STRING(constant_string_0,"..0..");
 CONSTANT_STRING(constant_string_1,"..1..");
 CONSTANT_STRING(constant_string_2,"..2..");
 CONSTANT_STRING(constant_string_3,"..3..");
+const ConstantString constant_string_array[] =
+  {
+    constant_string_0,
+    constant_string_1,
+    constant_string_2,
+    constant_string_3,
+  };
 CONSTANT_STRING(constant_string_key,"constant_string");
 const String const_string_key("constString");
 ConstantString* constant_string_ptr = &constant_string;
@@ -84,13 +91,7 @@ void loop()
 
   json_stream.write("constant_string",constant_string);
 
-  json_stream.writeKey("constant_string_array");
-  json_stream.beginArray();
-  json_stream.write(constant_string_0);
-  json_stream.write(constant_string_1);
-  json_stream.write(constant_string_2);
-  json_stream.write(constant_string_3);
-  json_stream.endArray();
+  json_stream.write("constant_string_array",constant_string_array);
 
   json_stream.writeKey("String array");
   json_stream.beginArray();
