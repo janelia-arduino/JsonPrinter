@@ -19,7 +19,6 @@ CONSTANT_STRING(string_constant_string,"\"string\"");
 CONSTANT_STRING(object_constant_string,"\"object\"");
 CONSTANT_STRING(array_constant_string,"\"array\"");
 CONSTANT_STRING(value_constant_string,"\"value\"");
-CONSTANT_STRING(enumeration_constant_string,"\"enumeration\"");
 
 JsonDepthTracker::JsonDepthTracker()
 {
@@ -432,9 +431,6 @@ void JsonStream::write<JsonStream::JsonTypes>(JsonStream::JsonTypes value)
         break;
       case VALUE_TYPE:
         *stream_ptr_ <<  value_constant_string;
-        break;
-      case ENUMERATION_TYPE:
-        *stream_ptr_ <<  enumeration_constant_string;
         break;
     }
   }
