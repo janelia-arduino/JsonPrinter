@@ -113,20 +113,6 @@ public:
       endArray();
     }
   }
-  template <typename T>
-  void writeArray(T *values, const size_t N)
-  {
-    if (stream_ptr_ != NULL)
-    {
-      endArrayItem();
-      beginArray();
-      for (int i=0;i<N;++i)
-      {
-        write(values[i]);
-      }
-      endArray();
-    }
-  }
   template <size_t N>
   void write(const char (&values)[N])
   {
@@ -143,8 +129,22 @@ public:
     writeKey(key);
     write(values);
   }
+  template <typename T>
+  void writeArray(T *values, const size_t N)
+  {
+    if (stream_ptr_ != NULL)
+    {
+      endArrayItem();
+      beginArray();
+      for (int i=0;i<N;++i)
+      {
+        write(values[i]);
+      }
+      endArray();
+    }
+  }
   template <typename K, typename T>
-  void write(K key, T *values, const size_t N)
+  void writeArray(K key, T *values, const size_t N)
   {
     writeKey(key);
     writeArray(values,N);

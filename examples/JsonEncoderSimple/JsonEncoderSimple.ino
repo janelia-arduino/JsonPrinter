@@ -103,13 +103,14 @@ void loop()
   Serial << "\n";
 
   // you can write c-style arrays
-  int c_style_array[5] = {5,4,3,2,1};
+  enum{ARRAY_LENGTH=5};
+  int c_style_array[ARRAY_LENGTH] = {5,4,3,2,1};
   json_stream.beginObject();
   json_stream.write("c_style_array",c_style_array);
   json_stream.endObject();
   Serial << "\n";
 
-  // you can write c-style arrays with non-const length
+  // you can write c-style arrays with non-const length using writeArray
   unsigned int array_length = 5;
   int c_style_array_non_const[array_length];
   c_style_array_non_const[0] = 5;
@@ -118,14 +119,7 @@ void loop()
   c_style_array_non_const[3] = 3;
   c_style_array_non_const[4] = 2;
   json_stream.beginObject();
-  json_stream.write("c_style_array_non_const",c_style_array_non_const,array_length);
-  json_stream.endObject();
-  Serial << "\n";
-
-  // use writeArray with c-style arrays with non-const length
-  json_stream.beginObject();
-  json_stream.writeKey("c_style_array_non_const(writeArray)");
-  json_stream.writeArray(c_style_array_non_const,array_length);
+  json_stream.writeArray("c_style_array_non_const",c_style_array_non_const,array_length);
   json_stream.endObject();
   Serial << "\n";
 
