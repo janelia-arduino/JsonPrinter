@@ -124,7 +124,10 @@ void loop()
   Serial << "\n";
 
   // you can write Arrays
-  Array<int,5> array(c_style_array);
+  Array<int,10> array(c_style_array);
+  Serial << "array should be: " << endl;
+  Serial << array << endl;
+  Serial << "array written with json_stream: " << endl;
   json_stream.beginObject();
   json_stream.write("array",array);
   json_stream.endObject();

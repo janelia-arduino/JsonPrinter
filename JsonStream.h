@@ -150,13 +150,13 @@ public:
     writeArray(values,N);
   }
   template <typename T, size_t N>
-  void write(Array<T,N> values)
+  void write(Array<T,N> &values)
   {
     if (stream_ptr_ != NULL)
     {
       endArrayItem();
       beginArray();
-      for (int i=0;i<N;++i)
+      for (int i=0;i<values.size();++i)
       {
         write(values[i]);
       }
@@ -164,7 +164,7 @@ public:
     }
   }
   template <typename T>
-  void write(Vector<T> values)
+  void write(Vector<T> &values)
   {
     if (stream_ptr_ != NULL)
     {
