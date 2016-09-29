@@ -24,3 +24,6 @@ small microprocessors.
 It is possible to write invalid JSON in this way, however, so some
 care needs to be taken that items are added in a meaningful order.
 
+##Install Library Dependencies
+
+[arduino-libraries](https://github.com/janelia-arduino/arduino-libraries)
