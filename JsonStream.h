@@ -130,7 +130,7 @@ public:
     write(values);
   }
   template <typename T>
-  void writeArray(T *values, const size_t N)
+  void writeArray(T * values, const size_t N)
   {
     if (stream_ptr_ != NULL)
     {
@@ -144,7 +144,7 @@ public:
     }
   }
   template <typename K, typename T>
-  void writeArray(K key, T *values, const size_t N)
+  void writeArray(K key, T * values, const size_t N)
   {
     writeKey(key);
     writeArray(values,N);
@@ -185,7 +185,7 @@ public:
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
-  Stream *stream_ptr_;
+  Stream * stream_ptr_;
   bool pretty_print_;
   byte indent_level_;
   bool writing_;
