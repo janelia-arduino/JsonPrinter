@@ -19,7 +19,6 @@ CONSTANT_STRING(string_constant_string,"\"string\"");
 CONSTANT_STRING(object_constant_string,"\"object\"");
 CONSTANT_STRING(array_constant_string,"\"array\"");
 CONSTANT_STRING(any_constant_string,"\"any\"");
-CONSTANT_STRING(void_constant_string,"\"void\"");
 
 JsonDepthTracker::JsonDepthTracker()
 {
@@ -432,9 +431,6 @@ void JsonStream::write<JsonStream::JsonTypes>(JsonStream::JsonTypes value)
         break;
       case ANY_TYPE:
         *stream_ptr_ <<  any_constant_string;
-        break;
-      case VOID_TYPE:
-        *stream_ptr_ <<  void_constant_string;
         break;
     }
   }
