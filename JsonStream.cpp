@@ -40,7 +40,7 @@ JsonStream::JsonStream()
   writing_ = false;
 }
 
-JsonStream::JsonStream(Stream &stream)
+JsonStream::JsonStream(Stream & stream)
 {
   setStream(stream);
   setCompactPrint();
@@ -48,12 +48,12 @@ JsonStream::JsonStream(Stream &stream)
   writing_ = false;
 }
 
-void JsonStream::setStream(Stream &stream)
+void JsonStream::setStream(Stream & stream)
 {
   stream_ptr_ = &stream;
 }
 
-Stream& JsonStream::getStream()
+Stream & JsonStream::getStream()
 {
   return *stream_ptr_;
 }
@@ -263,7 +263,7 @@ void JsonStream::write<String>(String value)
 }
 
 template <>
-void JsonStream::write<String&>(String &value)
+void JsonStream::write<String &>(String & value)
 {
   if (stream_ptr_ != NULL)
   {
@@ -561,7 +561,7 @@ void JsonStream::writeJson<String>(String value)
 }
 
 template <>
-void JsonStream::writeJson<String&>(String &value)
+void JsonStream::writeJson<String &>(String & value)
 {
   if (stream_ptr_ != NULL)
   {

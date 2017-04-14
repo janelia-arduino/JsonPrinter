@@ -52,9 +52,9 @@ public:
   static const char EOL='\n';
 
   JsonStream();
-  JsonStream(Stream &stream);
-  void setStream(Stream &stream);
-  Stream& getStream();
+  JsonStream(Stream & stream);
+  void setStream(Stream & stream);
+  Stream & getStream();
 
   // encoder methods
   void beginObject();
@@ -100,7 +100,7 @@ public:
   void writeChar(char c);
   void writeByte(byte b);
   template <typename T, size_t N>
-  void write(T (&values)[N])
+  void write(T (& values)[N])
   {
     if (stream_ptr_ != NULL)
     {
@@ -114,17 +114,17 @@ public:
     }
   }
   template <size_t N>
-  void write(const char (&values)[N])
+  void write(const char (& values)[N])
   {
     write<const char *>(values);
   }
   template <size_t N>
-  void write(char (&values)[N])
+  void write(char (& values)[N])
   {
     write<char *>(values);
   }
   template <typename K, typename T, size_t N>
-  void write(K key, T (&values)[N])
+  void write(K key, T (& values)[N])
   {
     writeKey(key);
     write(values);
@@ -150,7 +150,7 @@ public:
     writeArray(values,N);
   }
   template <typename T, size_t N>
-  void write(Array<T,N> &values)
+  void write(Array<T,N> & values)
   {
     if (stream_ptr_ != NULL)
     {
@@ -164,7 +164,7 @@ public:
     }
   }
   template <typename T>
-  void write(Vector<T> &values)
+  void write(Vector<T> & values)
   {
     if (stream_ptr_ != NULL)
     {
