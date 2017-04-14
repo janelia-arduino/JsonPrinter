@@ -54,6 +54,8 @@ public:
   JsonStream();
   JsonStream(Stream & stream);
   void setStream(Stream & stream);
+  void removeStream();
+  bool streamIsSet();
   Stream & getStream();
 
   // encoder methods

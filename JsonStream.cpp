@@ -53,6 +53,16 @@ void JsonStream::setStream(Stream & stream)
   stream_ptr_ = &stream;
 }
 
+void JsonStream::removeStream()
+{
+  stream_ptr_ = NULL;
+}
+
+bool JsonStream::streamIsSet()
+{
+  return (stream_ptr_ != NULL);
+}
+
 Stream & JsonStream::getStream()
 {
   return *stream_ptr_;
