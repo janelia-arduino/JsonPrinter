@@ -680,35 +680,6 @@ int JsonStream::available()
   }
 }
 
-int JsonStream::readJsonIntoBuffer(char buffer[], unsigned int buffer_size)
-{
-  if (stream_ptr_ != NULL)
-  {
-    unsigned int bytes_read = stream_ptr_->readBytesUntil(EOL,buffer,buffer_size);
-    if (bytes_read < buffer_size)
-    {
-      // terminate string
-      buffer[bytes_read] = 0;
-    }
-    else
-    {
-      // set buffer to empty string
-      buffer[0] = 0;
-      // clear stream of remaining characters
-      char EOL_STR[2];
-      EOL_STR[0] = EOL;
-      EOL_STR[1] = 0;
-      stream_ptr_->find(EOL_STR);
-      return -1;
-    }
-    return bytes_read;
-  }
-  else
-  {
-    return 0;
-  }
-}
-
 char JsonStream::readChar()
 {
   if (stream_ptr_ != NULL)

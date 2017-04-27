@@ -8,11 +8,11 @@
 #ifndef _JSON_STREAM_H_
 #define _JSON_STREAM_H_
 #ifdef ARDUINO
-    #if ARDUINO >= 100
-        #include <Arduino.h>
-    #else
-        #include <WProgram.h>
-    #endif
+#if ARDUINO >= 100
+#include <Arduino.h>
+#else
+#include <WProgram.h>
+#endif
 #else
 #include <cstddef>
 #include <cstring>
@@ -72,117 +72,40 @@ public:
   template<typename T>
   void writeDouble(T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
   template<typename K, typename T>
-  void write(K key, T value)
-  {
-    writeKey(key);
-    write(value);
-  }
+  void write(K key, T value);
   template<typename K, typename T>
-  void writeDouble(K key, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT)
-  {
-    writeKey(key);
-    writeDouble(value,prec);
-  }
+  void writeDouble(K key, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
   void writeNull();
   template<typename K>
-  void writeNull(K key)
-  {
-    writeKey(key);
-    writeNull();
-  }
+  void writeNull(K key);
   template<typename T>
   void writeJson(T value);
   template<typename K, typename T>
-  void writeJson(K key, T value)
-  {
-    writeKey(key);
-    writeJson(value);
-  }
+  void writeJson(K key, T value);
   void writeNewline();
   void writeChar(char c);
   void writeByte(byte b);
   template <typename T, size_t N>
-  void write(T (& values)[N])
-  {
-    if (stream_ptr_ != NULL)
-    {
-      endArrayItem();
-      beginArray();
-      for (int i=0;i<N;++i)
-      {
-        write(values[i]);
-      }
-      endArray();
-    }
-  }
+  void write(T (& values)[N]);
   template <size_t N>
-  void write(const char (& values)[N])
-  {
-    write<const char *>(values);
-  }
+  void write(const char (& values)[N]);
   template <size_t N>
-  void write(char (& values)[N])
-  {
-    write<char *>(values);
-  }
+  void write(char (& values)[N]);
   template <typename K, typename T, size_t N>
-  void write(K key, T (& values)[N])
-  {
-    writeKey(key);
-    write(values);
-  }
+  void write(K key, T (& values)[N]);
   template <typename T>
-  void writeArray(T * values, const size_t N)
-  {
-    if (stream_ptr_ != NULL)
-    {
-      endArrayItem();
-      beginArray();
-      for (int i=0;i<N;++i)
-      {
-        write(values[i]);
-      }
-      endArray();
-    }
-  }
+  void writeArray(T * values, const size_t N);
   template <typename K, typename T>
-  void writeArray(K key, T * values, const size_t N)
-  {
-    writeKey(key);
-    writeArray(values,N);
-  }
+  void writeArray(K key, T * values, const size_t N);
   template <typename T, size_t N>
-  void write(Array<T,N> & values)
-  {
-    if (stream_ptr_ != NULL)
-    {
-      endArrayItem();
-      beginArray();
-      for (int i=0;i<values.size();++i)
-      {
-        write(values[i]);
-      }
-      endArray();
-    }
-  }
+  void write(Array<T,N> & values);
   template <typename T>
-  void write(Vector<T> & values)
-  {
-    if (stream_ptr_ != NULL)
-    {
-      endArrayItem();
-      beginArray();
-      for (int i=0;i<values.size();++i)
-      {
-        write(values[i]);
-      }
-      endArray();
-    }
-  }
+  void write(Vector<T> & values);
 
   // decoder methods
   int available();
-  int readJsonIntoBuffer(char buffer[], unsigned int buffer_size);
+  template <size_t N>
+  long readJsonIntoBuffer(char (&buffer)[N]);
   char readChar();
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
@@ -196,5 +119,7 @@ private:
   void endItem();
   void endArrayItem();
 };
+
+#include "JsonStreamDefinitions.h"
 
 #endif
