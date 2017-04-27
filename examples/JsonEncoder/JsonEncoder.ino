@@ -7,7 +7,7 @@
 #include "JsonStream.h"
 
 
-const unsigned int BAUDRATE = 9600;
+const long BAUDRATE = 115200;
 
 JsonStream json_stream(Serial);
 
@@ -38,7 +38,6 @@ void setup()
 
   json_stream.setPrettyPrint();
 }
-
 
 void loop()
 {

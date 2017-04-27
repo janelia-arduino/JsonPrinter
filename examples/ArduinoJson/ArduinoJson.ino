@@ -20,7 +20,7 @@ double latitude = root["data"][0];
 double longitude = root["data"][1];
 
 
-const unsigned int BAUDRATE = 9600;
+const long BAUDRATE = 115200;
 
 JsonStream json_stream(Serial);
 
@@ -30,7 +30,6 @@ void setup()
 {
   Serial.begin(BAUDRATE);
 }
-
 
 void loop()
 {
