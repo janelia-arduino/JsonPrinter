@@ -693,7 +693,7 @@ bool JsonStream::readJsonAndFind<char *>(char * target)
     if (found)
     {
       // clear stream of remaining characters
-      stream_ptr_->find(EOL_STR);
+      clear();
     }
   }
   return found;
@@ -747,6 +747,18 @@ char JsonStream::readChar()
   else
   {
     return 0;
+  }
+}
+
+void JsonStream::clear()
+{
+  if (stream_ptr_ != NULL)
+  {
+    // clear stream of remaining characters
+    char EOL_STR[2];
+    EOL_STR[0] = EOL;
+    EOL_STR[1] = 0;
+    stream_ptr_->find(EOL_STR);
   }
 }
 

@@ -140,11 +140,7 @@ long JsonStream::readJsonIntoBuffer(char (&buffer)[N])
       // set buffer to empty string
       buffer[0] = 0;
       // clear stream of remaining characters
-      char EOL_STR[2];
-      EOL_STR[0] = EOL;
-      EOL_STR[1] = 0;
-      stream_ptr_->find(EOL_STR);
-      bytes_read = -1;
+      clear();
     }
   }
   return bytes_read;

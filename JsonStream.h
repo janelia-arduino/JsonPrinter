@@ -109,6 +109,7 @@ public:
   template<typename T>
   bool readJsonAndFind(T target);
   char readChar();
+  void clear();
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;
   static const uint8_t RESPONSE_INDENT=2;
