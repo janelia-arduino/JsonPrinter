@@ -106,6 +106,8 @@ public:
   int available();
   template <size_t N>
   long readJsonIntoBuffer(char (&buffer)[N]);
+  template<typename T>
+  bool readJsonAndFind(T target);
   char readChar();
 private:
   static const uint8_t RESPONSE_DEPTH_MAX=8;

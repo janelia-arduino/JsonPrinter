@@ -126,10 +126,11 @@ void JsonStream::write(Vector<T> & values)
 template <size_t N>
 long JsonStream::readJsonIntoBuffer(char (&buffer)[N])
 {
+  long bytes_read = 0;
   if (stream_ptr_ != NULL)
   {
-    size_t bytes_read = stream_ptr_->readBytesUntil(EOL,buffer,N);
-    if (bytes_read < N)
+    bytes_read = stream_ptr_->readBytesUntil(EOL,buffer,N);
+    if ((size_t)bytes_read < N)
     {
       // terminate string
       buffer[bytes_read] = 0;
@@ -143,14 +144,10 @@ long JsonStream::readJsonIntoBuffer(char (&buffer)[N])
       EOL_STR[0] = EOL;
       EOL_STR[1] = 0;
       stream_ptr_->find(EOL_STR);
-      return -1;
+      bytes_read = -1;
     }
-    return bytes_read;
   }
-  else
-  {
-    return 0;
-  }
+  return bytes_read;
 }
 
 #endif

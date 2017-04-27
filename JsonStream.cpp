@@ -680,6 +680,64 @@ int JsonStream::available()
   }
 }
 
+template <>
+bool JsonStream::readJsonAndFind<char *>(char * target)
+{
+  bool found = false;
+  char EOL_STR[2];
+  EOL_STR[0] = EOL;
+  EOL_STR[1] = 0;
+  if (stream_ptr_ != NULL)
+  {
+    found = stream_ptr_->findUntil(target,EOL_STR);
+    if (found)
+    {
+      // clear stream of remaining characters
+      stream_ptr_->find(EOL_STR);
+    }
+  }
+  return found;
+}
+
+template <>
+bool JsonStream::readJsonAndFind<const char *>(const char * target)
+{
+  size_t length = strlen(target);
+  char target_str[length+1] = "";
+  strcpy(target_str,target);
+  return readJsonAndFind(target_str);
+}
+
+template <>
+bool JsonStream::readJsonAndFind<String>(String target)
+{
+  size_t length = target.length();
+  char target_str[length+1] = "";
+  target.toCharArray(target_str,length);
+  return readJsonAndFind(target_str);
+}
+
+template <>
+bool JsonStream::readJsonAndFind<ConstantString>(ConstantString target)
+{
+  size_t length = target.length();
+  char target_str[length+1] = "";
+  target.copy(target_str);
+  return readJsonAndFind(target_str);
+}
+
+template <>
+bool JsonStream::readJsonAndFind<ConstantString *>(ConstantString * target)
+{
+  return readJsonAndFind(*target);
+}
+
+template <>
+bool JsonStream::readJsonAndFind<ConstantString const *>(ConstantString const * target)
+{
+  return readJsonAndFind(*target);
+}
+
 char JsonStream::readChar()
 {
   if (stream_ptr_ != NULL)
