@@ -140,6 +140,21 @@ void loop()
   json_stream.endObject();
   Serial << "\n";
 
+  // you can write Arrays using pointers
+  Serial << "*array_ptr should be: " << endl;
+  Serial << array << endl;
+  Serial << "*array_ptr written with json_stream: " << endl;
+  json_stream.beginObject();
+  json_stream.write("*array_ptr",&array);
+  json_stream.endObject();
+  Serial << "\n";
+
+  // you can write Vectors using pointers
+  json_stream.beginObject();
+  json_stream.write("*vector_ptr",&vector);
+  json_stream.endObject();
+  Serial << "\n";
+
   ++print_count;
   delay(2000);
 }

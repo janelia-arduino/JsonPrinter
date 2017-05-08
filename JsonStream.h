@@ -101,6 +101,10 @@ public:
   void write(Array<T,N> & values);
   template <typename T>
   void write(Vector<T> & values);
+  template <typename T, size_t N>
+  void write(Array<T,N> * values_ptr);
+  template <typename T>
+  void write(Vector<T> * values_ptr);
 
   // decoder methods
   int available();

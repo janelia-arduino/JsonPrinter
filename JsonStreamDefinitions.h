@@ -44,7 +44,7 @@ void JsonStream::write(T (& values)[N])
   {
     endArrayItem();
     beginArray();
-    for (int i=0;i<N;++i)
+    for (size_t i=0;i<N;++i)
     {
       write(values[i]);
     }
@@ -78,7 +78,7 @@ void JsonStream::writeArray(T * values, const size_t N)
   {
     endArrayItem();
     beginArray();
-    for (int i=0;i<N;++i)
+    for (size_t i=0;i<N;++i)
     {
       write(values[i]);
     }
@@ -100,7 +100,7 @@ void JsonStream::write(Array<T,N> & values)
   {
     endArrayItem();
     beginArray();
-    for (int i=0;i<values.size();++i)
+    for (size_t i=0;i<values.size();++i)
     {
       write(values[i]);
     }
@@ -115,9 +115,39 @@ void JsonStream::write(Vector<T> & values)
   {
     endArrayItem();
     beginArray();
-    for (int i=0;i<values.size();++i)
+    for (size_t i=0;i<values.size();++i)
     {
       write(values[i]);
+    }
+    endArray();
+  }
+}
+
+template <typename T, size_t N>
+void JsonStream::write(Array<T,N> * values_ptr)
+{
+  if (stream_ptr_ != NULL)
+  {
+    endArrayItem();
+    beginArray();
+    for (size_t i=0;i<values_ptr->size();++i)
+    {
+      write((*values_ptr)[i]);
+    }
+    endArray();
+  }
+}
+
+template <typename T>
+void JsonStream::write(Vector<T> * values_ptr)
+{
+  if (stream_ptr_ != NULL)
+  {
+    endArrayItem();
+    beginArray();
+    for (size_t i=0;i<values_ptr->size();++i)
+    {
+      write((*values_ptr)[i]);
     }
     endArray();
   }
