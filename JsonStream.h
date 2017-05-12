@@ -98,9 +98,9 @@ public:
   template <typename K, typename T>
   void writeArray(K key, T * values, const size_t N);
   template <typename T, size_t N>
-  void write(Array<T,N> & values);
+  void write(Array<T,N> values);
   template <typename T>
-  void write(Vector<T> & values);
+  void write(Vector<T> values);
   template <typename T, size_t N>
   void write(Array<T,N> * values_ptr);
   template <typename T>

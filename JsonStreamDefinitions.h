@@ -94,7 +94,7 @@ void JsonStream::writeArray(K key, T * values, const size_t N)
 }
 
 template <typename T, size_t N>
-void JsonStream::write(Array<T,N> & values)
+void JsonStream::write(Array<T,N> values)
 {
   if (stream_ptr_ != NULL)
   {
@@ -109,7 +109,7 @@ void JsonStream::write(Array<T,N> & values)
 }
 
 template <typename T>
-void JsonStream::write(Vector<T> & values)
+void JsonStream::write(Vector<T> values)
 {
   if (stream_ptr_ != NULL)
   {
