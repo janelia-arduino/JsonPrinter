@@ -8,20 +8,16 @@
 #ifndef _JSON_STREAM_H_
 #define _JSON_STREAM_H_
 #ifdef ARDUINO
-#if ARDUINO >= 100
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 #else
 #include <cstddef>
 #include <cstring>
 #endif
-#include "Streaming.h"
-#include "Array.h"
-#include "Vector.h"
-#include "ConstantVariable.h"
-#include "ArduinoJson.h"
+#include <Streaming.h>
+#include <Array.h>
+#include <Vector.h>
+#include <ConstantVariable.h>
+#include <ArduinoJson.h>
 
 
 class JsonDepthTracker
@@ -127,6 +123,6 @@ private:
   void endArrayItem();
 };
 
-#include "JsonStreamDefinitions.h"
+#include "JsonStream/JsonStreamDefinitions.h"
 
 #endif

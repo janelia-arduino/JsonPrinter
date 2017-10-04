@@ -1,10 +1,10 @@
-#include "Arduino.h"
-#include "Streaming.h"
-#include "Array.h"
-#include "Vector.h"
-#include "ConstantVariable.h"
-#include "ArduinoJson.h"
-#include "JsonStream.h"
+#include <Arduino.h>
+#include <Streaming.h>
+#include <Array.h>
+#include <Vector.h>
+#include <ConstantVariable.h>
+#include <ArduinoJson.h>
+#include <JsonStream.h>
 
 
 char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";

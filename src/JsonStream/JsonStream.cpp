@@ -5,7 +5,7 @@
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#include "JsonStream.h"
+#include "../JsonStream.h"
 
 
 CONSTANT_STRING(true_constant_string,"true");
