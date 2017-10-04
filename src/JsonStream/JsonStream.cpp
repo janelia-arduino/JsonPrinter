@@ -371,6 +371,26 @@ void JsonStream::write<unsigned int>(unsigned int value)
 }
 
 template <>
+void JsonStream::write<short>(short value)
+{
+  if (stream_ptr_ != NULL)
+  {
+    endArrayItem();
+    *stream_ptr_ <<  _DEC(value);
+  }
+}
+
+template <>
+void JsonStream::write<unsigned short>(unsigned short value)
+{
+  if (stream_ptr_ != NULL)
+  {
+    endArrayItem();
+    *stream_ptr_ <<  _DEC(value);
+  }
+}
+
+template <>
 void JsonStream::write<long>(long value)
 {
   if (stream_ptr_ != NULL)
