@@ -142,6 +142,10 @@ void JsonStream::writeKey<const char *>(const char * key)
     if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
     {
       *stream_ptr_ << "\"" << key << "\"" << ":";
+      if (pretty_print_)
+      {
+        *stream_ptr_ << " ";
+      }
     }
   }
 }
@@ -155,6 +159,10 @@ void JsonStream::writeKey<char *>(char * key)
     if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
     {
       *stream_ptr_ << "\"" << key << "\"" << ":";
+      if (pretty_print_)
+      {
+        *stream_ptr_ << " ";
+      }
     }
   }
 }
@@ -168,6 +176,10 @@ void JsonStream::writeKey<String>(String key)
     if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
     {
       *stream_ptr_ << "\"" << key << "\"" << ":";
+      if (pretty_print_)
+      {
+        *stream_ptr_ << " ";
+      }
     }
   }
 }
@@ -181,6 +193,10 @@ void JsonStream::writeKey<ConstantString>(ConstantString key)
     if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
     {
       *stream_ptr_ << "\"" << key << "\"" << ":";
+      if (pretty_print_)
+      {
+        *stream_ptr_ << " ";
+      }
     }
   }
 }
@@ -194,6 +210,10 @@ void JsonStream::writeKey<ConstantString const *>(ConstantString const * key_ptr
     if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
     {
       *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+      if (pretty_print_)
+      {
+        *stream_ptr_ << " ";
+      }
     }
   }
 }
@@ -207,6 +227,10 @@ void JsonStream::writeKey<ConstantString *>(ConstantString * key_ptr)
     if (!depth_tracker_.empty() && depth_tracker_.back().inside_object_)
     {
       *stream_ptr_ << "\"" << *key_ptr << "\"" << ":";
+      if (pretty_print_)
+      {
+        *stream_ptr_ << " ";
+      }
     }
   }
 }
@@ -537,7 +561,35 @@ void JsonStream::write<ArduinoJson::JsonArray *>(ArduinoJson::JsonArray * array_
   if (stream_ptr_ != NULL)
   {
     endArrayItem();
-    array_ptr->printTo(*stream_ptr_);
+    if (pretty_print_)
+    {
+      const size_t length = array_ptr->measurePrettyLength();
+      if (length < BUFFER_LENGTH_MAX)
+      {
+        char buffer[length+1];
+        array_ptr->prettyPrintTo(buffer,length+1);
+        for (size_t i=0; i<length; ++i)
+        {
+          char b = buffer[i];
+          if (b != '\r')
+          {
+            *stream_ptr_ << b;
+          }
+          if (b == '\n')
+          {
+            indent();
+          }
+        }
+      }
+      else
+      {
+        array_ptr->printTo(*stream_ptr_);
+      }
+    }
+    else
+    {
+      array_ptr->printTo(*stream_ptr_);
+    }
   }
 }
 
@@ -547,7 +599,35 @@ void JsonStream::write<ArduinoJson::JsonObject *>(ArduinoJson::JsonObject * obje
   if (stream_ptr_ != NULL)
   {
     endArrayItem();
-    object_ptr->printTo(*stream_ptr_);
+    if (pretty_print_)
+    {
+      const size_t length = object_ptr->measurePrettyLength();
+      if (length < BUFFER_LENGTH_MAX)
+      {
+        char buffer[length+1];
+        object_ptr->prettyPrintTo(buffer,length+1);
+        for (size_t i=0; i<length; ++i)
+        {
+          char b = buffer[i];
+          if (b != '\r')
+          {
+            *stream_ptr_ << b;
+          }
+          if (b == '\n')
+          {
+            indent();
+          }
+        }
+      }
+      else
+      {
+        object_ptr->printTo(*stream_ptr_);
+      }
+    }
+    else
+    {
+      object_ptr->printTo(*stream_ptr_);
+    }
   }
 }
 
