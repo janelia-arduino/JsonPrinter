@@ -7,7 +7,7 @@
 #include <JsonStream.h>
 
 
-const long BAUDRATE = 115200;
+const long BAUD = 115200;
 const long STRING_LENGTH_RESPONSE = 4000;
 char result_target[] = "\"result\":";
 char error_target[] = "\"error\":";
@@ -34,8 +34,8 @@ void sendBadRequest()
 
 void setup()
 {
-  Serial.begin(BAUDRATE);
-  Serial1.begin(BAUDRATE);
+  Serial.begin(BAUD);
+  Serial1.begin(BAUD);
 
   json_stream.setCompactPrint();
 }

@@ -7,7 +7,7 @@
 #include <JsonStream.h>
 
 
-const long BAUDRATE = 115200;
+const long BAUD = 115200;
 
 JsonStream json_stream(Serial);
 
@@ -34,7 +34,7 @@ unsigned int print_count = 0;
 
 void setup()
 {
-  Serial.begin(BAUDRATE);
+  Serial.begin(BAUD);
 
   json_stream.setPrettyPrint();
 }
@@ -109,7 +109,7 @@ void loop()
   json_stream.write(constant_string_key,"yep!");
   json_stream.write(const_string_key,"yep!!");
 
-  json_stream.write("baudrate",BAUDRATE);
+  json_stream.write("baud",BAUD);
 
   json_stream.write("constant_string_ptr",constant_string_ptr);
 
