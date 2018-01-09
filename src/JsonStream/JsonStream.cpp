@@ -65,6 +65,10 @@ bool JsonStream::streamIsSet()
 
 Stream & JsonStream::getStream()
 {
+  if (stream_ptr_ == NULL)
+  {
+    return Serial;
+  }
   return *stream_ptr_;
 }
 
