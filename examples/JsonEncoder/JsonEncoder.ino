@@ -145,6 +145,40 @@ void loop()
   json_stream.endArray();
   json_stream.writeNewline();
 
+  // test arrays containing arrays
+  json_stream.beginObject();
+  json_stream.writeKey("array_of_arrays");
+  json_stream.beginArray();
+  for (size_t i=0; i<(size_t)4; ++i)
+  {
+    json_stream.beginArray();
+    for (size_t j=0; j<(size_t)2; ++j)
+    {
+      json_stream.write(i+j);
+    }
+    json_stream.endArray();
+  }
+  json_stream.endArray();
+  json_stream.writeKey("array_of_array_of_arrays");
+  json_stream.beginArray();
+  for (size_t i=0; i<(size_t)3; ++i)
+  {
+    json_stream.beginArray();
+    for (size_t j=0; j<(size_t)2; ++j)
+    {
+      json_stream.beginArray();
+      for (size_t k=0; k<(size_t)2; ++k)
+      {
+        json_stream.write(i+j+k);
+      }
+      json_stream.endArray();
+    }
+    json_stream.endArray();
+  }
+  json_stream.endArray();
+  json_stream.endObject();
+  json_stream.writeNewline();
+
   ++print_count;
   delay(2000);
 }

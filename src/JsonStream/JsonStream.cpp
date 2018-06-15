@@ -106,6 +106,10 @@ void JsonStream::beginArray()
 {
   if (stream_ptr_ != NULL)
   {
+    if (!depth_tracker_.empty())
+    {
+      endArrayItem();
+    }
     indent_level_++;
     depth_tracker_.push_back(JsonDepthTracker(true,false));
     *stream_ptr_ << "[";
