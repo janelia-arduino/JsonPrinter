@@ -42,7 +42,6 @@ void JsonStream::write(T (& values)[N])
 {
   if (stream_ptr_ != NULL)
   {
-    endArrayItem();
     beginArray();
     for (size_t i=0;i<N;++i)
     {
@@ -76,7 +75,6 @@ void JsonStream::writeArray(T * values, const size_t N)
 {
   if (stream_ptr_ != NULL)
   {
-    endArrayItem();
     beginArray();
     for (size_t i=0;i<N;++i)
     {
@@ -98,7 +96,6 @@ void JsonStream::write(Array<T,N> values)
 {
   if (stream_ptr_ != NULL)
   {
-    endArrayItem();
     beginArray();
     for (size_t i=0;i<values.size();++i)
     {
@@ -113,7 +110,6 @@ void JsonStream::write(Vector<T> values)
 {
   if (stream_ptr_ != NULL)
   {
-    endArrayItem();
     beginArray();
     for (size_t i=0;i<values.size();++i)
     {
@@ -128,7 +124,6 @@ void JsonStream::write(Array<T,N> * values_ptr)
 {
   if (stream_ptr_ != NULL)
   {
-    endArrayItem();
     beginArray();
     for (size_t i=0;i<values_ptr->size();++i)
     {
@@ -143,7 +138,6 @@ void JsonStream::write(Vector<T> * values_ptr)
 {
   if (stream_ptr_ != NULL)
   {
-    endArrayItem();
     beginArray();
     for (size_t i=0;i<values_ptr->size();++i)
     {

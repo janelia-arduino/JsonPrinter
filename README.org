@@ -3,8 +3,12 @@
 #+EMAIL: peterpolidoro@gmail.com
 
 * Library Information
-  - Author :: Peter Polidoro
+  - Name :: JsonStream
+  - Version :: 1.1.4
   - License :: BSD
+  - URL :: https://github.com/janelia-arduino/JsonStream
+  - Author :: Peter Polidoro
+  - Email :: peterpolidoro@gmail.com
 
   JSON encoder/decoder that processes a stream sequentially to reduce
   buffer memory requirements.

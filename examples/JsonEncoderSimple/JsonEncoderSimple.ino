@@ -132,12 +132,32 @@ void loop()
   json_stream.endObject();
   Serial << "\n";
 
+  // you can write Arrays inside of Arrays
+  Serial << "array inside array should be: " << endl;
+  Serial << "[\"array\"," << array << "]" << endl;
+  Serial << "array inside array written with json_stream: " << endl;
+  json_stream.beginArray();
+  json_stream.write("array");
+  json_stream.write(array);
+  json_stream.endArray();
+  Serial << "\n";
+
   // you can write Vectors
   Vector<int> vector;
   vector.setStorage(c_style_array,5);
   json_stream.beginObject();
   json_stream.write("vector",vector);
   json_stream.endObject();
+  Serial << "\n";
+
+  // you can write Vectors inside Arrays
+  Serial << "vector inside array should be: " << endl;
+  Serial << "[\"vector\"," << vector << "]" << endl;
+  Serial << "vector inside array written with json_stream: " << endl;
+  json_stream.beginArray();
+  json_stream.write("vector");
+  json_stream.write(vector);
+  json_stream.endArray();
   Serial << "\n";
 
   // you can write Arrays using pointers
