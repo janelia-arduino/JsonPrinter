@@ -24,7 +24,8 @@ class JsonDepthTracker
 {
 public:
   JsonDepthTracker();
-  JsonDepthTracker(bool first_item, bool inside_object);
+  JsonDepthTracker(bool first_item,
+    bool inside_object);
   bool first_item_;
   bool inside_object_;
 };
@@ -67,38 +68,56 @@ public:
   template<typename T>
   void write(T value);
   template<typename T>
-  void writeDouble(T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
-  template<typename K, typename T>
-  void write(K key, T value);
-  template<typename K, typename T>
-  void writeDouble(K key, T value, unsigned char prec=DOUBLE_DIGITS_DEFAULT);
+  void writeDouble(T value,
+    unsigned char prec=DOUBLE_DIGITS_DEFAULT);
+  template<typename K,
+    typename T>
+  void write(K key,
+    T value);
+  template<typename K,
+    typename T>
+  void writeDouble(K key,
+    T value,
+    unsigned char prec=DOUBLE_DIGITS_DEFAULT);
   void writeNull();
   template<typename K>
   void writeNull(K key);
   template<typename T>
   void writeJson(T value);
-  template<typename K, typename T>
-  void writeJson(K key, T value);
+  template<typename K,
+    typename T>
+  void writeJson(K key,
+    T value);
   void writeNewline();
   void writeChar(char c);
   void writeByte(byte b);
-  template <typename T, size_t N>
+  template <typename T,
+    size_t N>
   void write(T (& values)[N]);
   template <size_t N>
   void write(const char (& values)[N]);
   template <size_t N>
   void write(char (& values)[N]);
-  template <typename K, typename T, size_t N>
-  void write(K key, T (& values)[N]);
+  template <typename K,
+    typename T,
+    size_t N>
+  void write(K key,
+    T (& values)[N]);
   template <typename T>
-  void writeArray(T * values, const size_t N);
-  template <typename K, typename T>
-  void writeArray(K key, T * values, const size_t N);
-  template <typename T, size_t N>
+  void writeArray(T * values,
+    size_t N);
+  template <typename K,
+    typename T>
+  void writeArray(K key,
+    T * values,
+    size_t N);
+  template <typename T,
+    size_t N>
   void write(Array<T,N> values);
   template <typename T>
   void write(Vector<T> values);
-  template <typename T, size_t N>
+  template <typename T,
+    size_t N>
   void write(Array<T,N> * values_ptr);
   template <typename T>
   void write(Vector<T> * values_ptr);

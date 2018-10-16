@@ -26,7 +26,8 @@ JsonDepthTracker::JsonDepthTracker()
   inside_object_ = true;
 }
 
-JsonDepthTracker::JsonDepthTracker(bool first_item, bool inside_object) :
+JsonDepthTracker::JsonDepthTracker(bool first_item,
+  bool inside_object) :
 first_item_(first_item),
 inside_object_(inside_object)
 {
@@ -523,7 +524,8 @@ void JsonStream::write<float>(float value)
 }
 
 template <>
-void JsonStream::writeDouble<double>(double value, unsigned char prec)
+void JsonStream::writeDouble<double>(double value,
+  unsigned char prec)
 {
   if (stream_ptr_ != NULL)
   {
@@ -535,7 +537,8 @@ void JsonStream::writeDouble<double>(double value, unsigned char prec)
 }
 
 template <>
-void JsonStream::writeDouble<float>(float value, unsigned char prec)
+void JsonStream::writeDouble<float>(float value,
+  unsigned char prec)
 {
   if (stream_ptr_ != NULL)
   {
