@@ -27,8 +27,8 @@ JsonDepthTracker::JsonDepthTracker()
 }
 
 JsonDepthTracker::JsonDepthTracker(bool first_item, bool inside_object) :
-  first_item_(first_item),
-  inside_object_(inside_object)
+first_item_(first_item),
+inside_object_(inside_object)
 {
 }
 

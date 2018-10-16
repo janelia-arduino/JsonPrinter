@@ -17,12 +17,12 @@ CONSTANT_STRING(constant_string_1,"..1..");
 CONSTANT_STRING(constant_string_2,"..2..");
 CONSTANT_STRING(constant_string_3,"..3..");
 const ConstantString constant_string_array[] =
-  {
-    constant_string_0,
-    constant_string_1,
-    constant_string_2,
-    constant_string_3,
-  };
+{
+  constant_string_0,
+  constant_string_1,
+  constant_string_2,
+  constant_string_3,
+};
 CONSTANT_STRING(constant_string_key,"constant_string");
 const String const_string_key("constString");
 ConstantString* constant_string_ptr = &constant_string;
