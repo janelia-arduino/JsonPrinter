@@ -187,4 +187,21 @@ long JsonStream::readJsonIntoBuffer(char (&buffer)[N])
   return bytes_read;
 }
 
+template <size_t N>
+void JsonStream::prettyPrintBuffer(const char (&buffer)[N])
+{
+  for (size_t i=0; i<strlen(buffer); ++i)
+  {
+    char b = buffer[i];
+    if (b != '\r')
+    {
+      *stream_ptr_ << b;
+    }
+    if (b == '\n')
+    {
+      indent();
+    }
+  }
+}
+
 #endif

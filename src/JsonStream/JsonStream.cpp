@@ -554,32 +554,13 @@ void JsonStream::write<ArduinoJson::JsonArray *>(ArduinoJson::JsonArray * array_
     endArrayItem();
     if (pretty_print_)
     {
-      const size_t length = array_ptr->measurePrettyLength();
-      if (length < BUFFER_LENGTH_MAX)
-      {
-        char buffer[length+1];
-        array_ptr->prettyPrintTo(buffer,length+1);
-        for (size_t i=0; i<length; ++i)
-        {
-          char b = buffer[i];
-          if (b != '\r')
-          {
-            *stream_ptr_ << b;
-          }
-          if (b == '\n')
-          {
-            indent();
-          }
-        }
-      }
-      else
-      {
-        array_ptr->printTo(*stream_ptr_);
-      }
+      char buffer[BUFFER_LENGTH_MAX];
+      serializeJsonPretty(*array_ptr,buffer);
+      prettyPrintBuffer(buffer);
     }
     else
     {
-      array_ptr->printTo(*stream_ptr_);
+      serializeJson(*array_ptr,*stream_ptr_);
     }
   }
 }
@@ -592,34 +573,27 @@ void JsonStream::write<ArduinoJson::JsonObject *>(ArduinoJson::JsonObject * obje
     endArrayItem();
     if (pretty_print_)
     {
-      const size_t length = object_ptr->measurePrettyLength();
-      if (length < BUFFER_LENGTH_MAX)
-      {
-        char buffer[length+1];
-        object_ptr->prettyPrintTo(buffer,length+1);
-        for (size_t i=0; i<length; ++i)
-        {
-          char b = buffer[i];
-          if (b != '\r')
-          {
-            *stream_ptr_ << b;
-          }
-          if (b == '\n')
-          {
-            indent();
-          }
-        }
-      }
-      else
-      {
-        object_ptr->printTo(*stream_ptr_);
-      }
+      char buffer[BUFFER_LENGTH_MAX];
+      serializeJsonPretty(*object_ptr,buffer);
+      prettyPrintBuffer(buffer);
     }
     else
     {
-      object_ptr->printTo(*stream_ptr_);
+      serializeJson(*object_ptr,*stream_ptr_);
     }
   }
+}
+
+template <>
+void JsonStream::write<ArduinoJson::JsonArray>(ArduinoJson::JsonArray array)
+{
+  write(&array);
+}
+
+template <>
+void JsonStream::write<ArduinoJson::JsonObject>(ArduinoJson::JsonObject object)
+{
+  write(&object);
 }
 
 void JsonStream::writeNull()
@@ -707,7 +681,7 @@ void JsonStream::writeJson<ArduinoJson::JsonArray *>(ArduinoJson::JsonArray * ar
   if (stream_ptr_ != NULL)
   {
     endArrayItem();
-    array_ptr->printTo(*stream_ptr_);
+    serializeJson(*array_ptr,*stream_ptr_);
   }
 }
 
@@ -717,7 +691,29 @@ void JsonStream::writeJson<ArduinoJson::JsonObject *>(ArduinoJson::JsonObject * 
   if (stream_ptr_ != NULL)
   {
     endArrayItem();
-    object_ptr->printTo(*stream_ptr_);
+    serializeJson(*object_ptr,*stream_ptr_);
+  }
+}
+
+template <>
+void JsonStream::writeJson<ArduinoJson::JsonArray>(ArduinoJson::JsonArray array)
+{
+  writeJson(&array);
+}
+
+template <>
+void JsonStream::writeJson<ArduinoJson::JsonObject>(ArduinoJson::JsonObject object)
+{
+  writeJson(&object);
+}
+
+template <>
+void JsonStream::writeJson<ArduinoJson::JsonVariant>(ArduinoJson::JsonVariant variant)
+{
+  if (stream_ptr_ != NULL)
+  {
+    endArrayItem();
+    serializeJson(variant,*stream_ptr_);
   }
 }
 

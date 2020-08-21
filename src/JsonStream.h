@@ -141,6 +141,8 @@ private:
   void indent();
   void endItem();
   void endArrayItem();
+  template<size_t N>
+  void prettyPrintBuffer(const char (&buffer)[N]);
 };
 
 #include "JsonStream/JsonStreamDefinitions.h"
