@@ -48,9 +48,6 @@ void loop()
 
   json_stream.write("json_object",root_object);
 
-  // you can use pointers to objects and arrays
-  json_stream.write("json_object2",&root_object);
-
   // newline automatically disabled when inside an object
   json_stream.writeNewline();
 
